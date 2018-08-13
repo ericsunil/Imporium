@@ -111,7 +111,7 @@ function GetDropDown(_Id, url, target) {
     $.ajax({
         type: "get",
         url:url,
-        data: { id:  _Id)},
+        data: { id:  _Id},
         success: function (data) {
             var a = data; // This line shows error.
             var markup = "<option value='0'>-- Select --</option>";
@@ -121,3 +121,26 @@ function GetDropDown(_Id, url, target) {
             $("#" + target).html(markup).show();
         }
     });
+}
+
+
+
+function GetDropDownFor(_Id, url, target) {
+    //   alert(_Id.value + url+ target);
+    //Subash Pasachhe
+
+    $.ajax({
+        type: "get",
+        url: url,
+        data: { id: $("#"+_Id).val() },
+        success: function (data) {
+            var a = data; // This line shows error.
+            var markup = "<option value='0'>-- Select --</option>";
+            for (var x = 0; x < data.length; x++) {
+                markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+            }
+            $("#" + target).html(markup).show();
+        }
+    });
+}
+
