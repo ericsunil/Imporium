@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="IndraLaxmiImporiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BillCustomers">
+          <Key>
+            <PropertyRef Name="BillCustomerID" />
+          </Key>
+          <Property Name="BillCustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerCode" Type="int" />
+          <Property Name="BillNumber" Type="int" />
+          <Property Name="CBM" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransportCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Total" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Bills">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNumber" Type="int" Nullable="false" />
+          <Property Name="SN" Type="int" />
+          <Property Name="DebtorID" Type="int" />
+          <Property Name="TransportID" Type="int" />
+          <Property Name="CredtorID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Orderded" Type="int" />
+          <Property Name="Pair" Type="int" />
+          <Property Name="TotalPair" Type="int" />
+          <Property Name="Rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="IsCommit" Type="bit" />
+          <Property Name="Ispaid" Type="bit" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="PreviousBalance" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Ledgers">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LedgerNumber" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerID" Type="int" />
+        </EntityType>
+        <EntityType Name="LedgerTransactions">
+          <Key>
+            <PropertyRef Name="LedgerTransactionID" />
+          </Key>
+          <Property Name="LedgerTransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LedgerID" Type="int" Nullable="false" />
+          <Property Name="Debit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Credit" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Balance" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PayLedger" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Size" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pairs" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rate" Type="nvarchar" MaxLength="50" />
+          <Property Name="ArtNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_BillCustomers_Bills">
+          <End Role="Bills" Type="Self.Bills" Multiplicity="0..1" />
+          <End Role="BillCustomers" Type="Self.BillCustomers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bills">
+              <PropertyRef Name="BillID" />
+            </Principal>
+            <Dependent Role="BillCustomers">
+              <PropertyRef Name="BillNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="CredtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Customers1">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="DebtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Customers2">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="DebtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ledgers_Customers">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
+          <End Role="Ledgers" Type="Self.Ledgers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Ledgers">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LedgerTransactions_Ledgers">
+          <End Role="Ledgers" Type="Self.Ledgers" Multiplicity="1" />
+          <End Role="LedgerTransactions" Type="Self.LedgerTransactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="LedgerTransactions">
+              <PropertyRef Name="LedgerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IndraLaxmiImporiumModelStoreContainer">
+          <EntitySet Name="BillCustomers" EntityType="Self.BillCustomers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ledgers" EntityType="Self.Ledgers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LedgerTransactions" EntityType="Self.LedgerTransactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BillCustomers_Bills" Association="Self.FK_BillCustomers_Bills">
+            <End Role="Bills" EntitySet="Bills" />
+            <End Role="BillCustomers" EntitySet="BillCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Customers" Association="Self.FK_Bills_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Customers1" Association="Self.FK_Bills_Customers1">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Customers2" Association="Self.FK_Bills_Customers2">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Products" Association="Self.FK_Bills_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ledgers_Customers" Association="Self.FK_Ledgers_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Ledgers" EntitySet="Ledgers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LedgerTransactions_Ledgers" Association="Self.FK_LedgerTransactions_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IndraLaxmiImporiumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BillCustomer">
+          <Key>
+            <PropertyRef Name="BillCustomerID" />
+          </Key>
+          <Property Name="BillCustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerCode" Type="Int32" />
+          <Property Name="BillNumber" Type="Int32" />
+          <Property Name="CBM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransportCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Total" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bill" Relationship="Self.FK_BillCustomers_Bills" FromRole="BillCustomers" ToRole="Bills" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNumber" Type="Int32" Nullable="false" />
+          <Property Name="SN" Type="Int32" />
+          <Property Name="DebtorID" Type="Int32" />
+          <Property Name="TransportID" Type="Int32" />
+          <Property Name="CredtorID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Orderded" Type="Int32" />
+          <Property Name="Pair" Type="Int32" />
+          <Property Name="TotalPair" Type="Int32" />
+          <Property Name="Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsCommit" Type="Boolean" />
+          <Property Name="Ispaid" Type="Boolean" />
+          <NavigationProperty Name="BillCustomers" Relationship="Self.FK_BillCustomers_Bills" FromRole="Bills" ToRole="BillCustomers" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Bills_Customers" FromRole="Bills" ToRole="Customers" />
+          <NavigationProperty Name="Customer1" Relationship="Self.FK_Bills_Customers1" FromRole="Bills" ToRole="Customers" />
+          <NavigationProperty Name="Customer2" Relationship="Self.FK_Bills_Customers2" FromRole="Bills" ToRole="Customers" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Bills_Products" FromRole="Bills" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PreviousBalance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bills_Customers" FromRole="Customers" ToRole="Bills" />
+          <NavigationProperty Name="Bills1" Relationship="Self.FK_Bills_Customers1" FromRole="Customers" ToRole="Bills" />
+          <NavigationProperty Name="Bills2" Relationship="Self.FK_Bills_Customers2" FromRole="Customers" ToRole="Bills" />
+          <NavigationProperty Name="Ledgers" Relationship="Self.FK_Ledgers_Customers" FromRole="Customers" ToRole="Ledgers" />
+        </EntityType>
+        <EntityType Name="Ledger">
+          <Key>
+            <PropertyRef Name="LedgerID" />
+          </Key>
+          <Property Name="LedgerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LedgerNumber" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Ledgers_Customers" FromRole="Ledgers" ToRole="Customers" />
+          <NavigationProperty Name="LedgerTransactions" Relationship="Self.FK_LedgerTransactions_Ledgers" FromRole="Ledgers" ToRole="LedgerTransactions" />
+        </EntityType>
+        <EntityType Name="LedgerTransaction">
+          <Key>
+            <PropertyRef Name="LedgerTransactionID" />
+          </Key>
+          <Property Name="LedgerTransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LedgerID" Type="Int32" Nullable="false" />
+          <Property Name="Debit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Credit" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PayLedger" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ledger" Relationship="Self.FK_LedgerTransactions_Ledgers" FromRole="LedgerTransactions" ToRole="Ledgers" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pairs" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ArtNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bills_Products" FromRole="Products" ToRole="Bills" />
+        </EntityType>
+        <Association Name="FK_BillCustomers_Bills">
+          <End Role="Bills" Type="Self.Bill" Multiplicity="0..1" />
+          <End Role="BillCustomers" Type="Self.BillCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bills">
+              <PropertyRef Name="BillID" />
+            </Principal>
+            <Dependent Role="BillCustomers">
+              <PropertyRef Name="BillNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Customers">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="CredtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Customers1">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="DebtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Customers2">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="DebtorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bills_Products">
+          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Bills">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ledgers_Customers">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Ledgers" Type="Self.Ledger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Ledgers">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LedgerTransactions_Ledgers">
+          <End Role="Ledgers" Type="Self.Ledger" Multiplicity="1" />
+          <End Role="LedgerTransactions" Type="Self.LedgerTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ledgers">
+              <PropertyRef Name="LedgerID" />
+            </Principal>
+            <Dependent Role="LedgerTransactions">
+              <PropertyRef Name="LedgerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BillCustomers" EntityType="Self.BillCustomer" />
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Ledgers" EntityType="Self.Ledger" />
+          <EntitySet Name="LedgerTransactions" EntityType="Self.LedgerTransaction" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <AssociationSet Name="FK_BillCustomers_Bills" Association="Self.FK_BillCustomers_Bills">
+            <End Role="Bills" EntitySet="Bills" />
+            <End Role="BillCustomers" EntitySet="BillCustomers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Customers" Association="Self.FK_Bills_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Customers1" Association="Self.FK_Bills_Customers1">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Customers2" Association="Self.FK_Bills_Customers2">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bills_Products" Association="Self.FK_Bills_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Bills" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ledgers_Customers" Association="Self.FK_Ledgers_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Ledgers" EntitySet="Ledgers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LedgerTransactions_Ledgers" Association="Self.FK_LedgerTransactions_Ledgers">
+            <End Role="Ledgers" EntitySet="Ledgers" />
+            <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IndraLaxmiImporiumModelStoreContainer" CdmEntityContainer="DBModel">
+          <EntitySetMapping Name="BillCustomers">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.BillCustomer">
+              <MappingFragment StoreEntitySet="BillCustomers">
+                <ScalarProperty Name="BillCustomerID" ColumnName="BillCustomerID" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="CBM" ColumnName="CBM" />
+                <ScalarProperty Name="TransportCode" ColumnName="TransportCode" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.Bill">
+              <MappingFragment StoreEntitySet="Bills">
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="SN" ColumnName="SN" />
+                <ScalarProperty Name="DebtorID" ColumnName="DebtorID" />
+                <ScalarProperty Name="TransportID" ColumnName="TransportID" />
+                <ScalarProperty Name="CredtorID" ColumnName="CredtorID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Orderded" ColumnName="Orderded" />
+                <ScalarProperty Name="Pair" ColumnName="Pair" />
+                <ScalarProperty Name="TotalPair" ColumnName="TotalPair" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="IsCommit" ColumnName="IsCommit" />
+                <ScalarProperty Name="Ispaid" ColumnName="Ispaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PreviousBalance" ColumnName="PreviousBalance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ledgers">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.Ledger">
+              <MappingFragment StoreEntitySet="Ledgers">
+                <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+                <ScalarProperty Name="LedgerNumber" ColumnName="LedgerNumber" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LedgerTransactions">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.LedgerTransaction">
+              <MappingFragment StoreEntitySet="LedgerTransactions">
+                <ScalarProperty Name="LedgerTransactionID" ColumnName="LedgerTransactionID" />
+                <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="PayLedger" ColumnName="PayLedger" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.Product">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Pairs" ColumnName="Pairs" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ArtNo" ColumnName="ArtNo" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

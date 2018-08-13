@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ASPMVCIndraLaxmiImporium.Models.LedgerTransaction>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+
+<table class="table table-bordered table-condensed table-striped" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LedgerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Debit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Credit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PayLedger)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LedgerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Debit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Credit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayLedger)
+                </td>
+                <td>
+                    <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "LedgerTransaction", new { id=@item.LedgerTransactionID })')"> <i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-danger" onclick="Delete('@Url.Action("Delete", "LedgerTransaction", new { id=@item.LedgerTransactionID })')"><i class="fa fa-trash"></i> Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

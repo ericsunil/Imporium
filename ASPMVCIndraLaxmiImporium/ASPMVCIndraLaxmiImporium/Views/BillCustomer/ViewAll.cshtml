@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ASPMVCIndraLaxmiImporium.Models.BillCustomer>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+
+
+<table class="table table-bordered table-condensed table-striped table-responsive" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CBM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransportCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @Html.AntiForgeryToken()
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BillNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CBM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransportCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Total)
+                </td>
+                <td>
+                    <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "BillCustomer", new { id=@item.BillCustomerID })')"> <i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-danger" onclick="Delete('@Url.Action("Delete", "BillCustomer", new { id=@item.BillCustomerID })')"><i class="fa fa-trash"></i> Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+

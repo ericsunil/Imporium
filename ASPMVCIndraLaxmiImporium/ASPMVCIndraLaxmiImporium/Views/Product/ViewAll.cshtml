@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ASPMVCIndraLaxmiImporium.Models.Product>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+
+<table class="table table-condensed table-bordered table-striped" id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pairs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArtNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mark)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pairs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArtNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mark)
+                </td>
+                <td>
+                    <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "Product", new { id=@item.ProductID })')"> <i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-danger" onclick="Delete('@Url.Action("Delete", "Product", new { id=@item.ProductID })')"><i class="fa fa-trash"></i> Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

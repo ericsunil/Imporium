@@ -1,0 +1,55 @@
+﻿@model ASPMVCIndraLaxmiImporium.Models.Ledger
+
+@{
+    ViewBag.Title = "AddorEdit";
+    Layout = null;
+
+    List<SelectListItem> li = new List<SelectListItem>();
+    li.Add(new SelectListItem() { Text = "-- Select --", Value = "None" });
+    li.Add(new SelectListItem() { Text = "System", Value = "system" });
+    li.Add(new SelectListItem() { Text = "Income", Value = "Income" });
+    li.Add(new SelectListItem() { Text = "Expenses", Value = "Expenses" });
+}
+
+
+@using (Html.BeginForm("AddorEdit", "Ledger", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_resetUrl = Url.Action("AddorEdit", "Ledger", new { id = 0 }) })) //data-resetUrl
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LedgerID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LedgerNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LedgerNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LedgerNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Type", li, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+

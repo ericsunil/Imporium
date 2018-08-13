@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ASPMVCIndraLaxmiImporium.Models.Bill>
+
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+
+
+<table class="table table-bordered table-responsive table-striped table-condensed"id="dataTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DebtorID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransportID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CredtorID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Orderded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pair)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPair)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DebtorID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TransportID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CredtorID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Orderded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pair)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPair)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                </td>
+                <td>
+                    <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "Bill", new { id=@item.BillID })')"> <i class="fa fa-edit"></i> Edit</a>
+                    <a class="btn btn-danger" onclick="Delete('@Url.Action("Delete", "Bill", new { id=@item.BillID })')"><i class="fa fa-trash"></i> Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
