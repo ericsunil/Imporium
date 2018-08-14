@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IndraLaxmiImporiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IndraLaxmiImporiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BillCustomers">
           <Key>
             <PropertyRef Name="BillCustomerID" />
@@ -77,6 +77,33 @@
           <Property Name="Rate" Type="nvarchar" MaxLength="50" />
           <Property Name="ArtNo" Type="nvarchar" MaxLength="50" />
           <Property Name="Mark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TransactionDetails">
+          <Key>
+            <PropertyRef Name="TransactionDetailID" />
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="TransactionDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNumber" Type="int" />
+          <Property Name="LedgerNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Debit" Type="float" />
+          <Property Name="Credit" Type="float" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TransactionMains">
+          <Key>
+            <PropertyRef Name="TransactionMainID" />
+          </Key>
+          <Property Name="TransactionMainID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNumber" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Date" Type="date" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_BillCustomers_Bills">
           <End Role="Bills" Type="Self.Bills" Multiplicity="0..1" />
@@ -169,6 +196,26 @@
           <EntitySet Name="Ledgers" EntityType="Self.Ledgers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LedgerTransactions" EntityType="Self.LedgerTransactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TransactionDetails].[TransactionDetailID] AS [TransactionDetailID], 
+    [TransactionDetails].[BillNumber] AS [BillNumber], 
+    [TransactionDetails].[LedgerNumber] AS [LedgerNumber], 
+    [TransactionDetails].[Description] AS [Description], 
+    [TransactionDetails].[Debit] AS [Debit], 
+    [TransactionDetails].[Credit] AS [Credit], 
+    [TransactionDetails].[CustomerID] AS [CustomerID]
+    FROM [dbo].[TransactionDetails] AS [TransactionDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TransactionMains" EntityType="Self.TransactionMains" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TransactionMains].[TransactionMainID] AS [TransactionMainID], 
+    [TransactionMains].[BillNumber] AS [BillNumber], 
+    [TransactionMains].[Description] AS [Description], 
+    [TransactionMains].[Date] AS [Date], 
+    [TransactionMains].[UserName] AS [UserName]
+    FROM [dbo].[TransactionMains] AS [TransactionMains]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_BillCustomers_Bills" Association="Self.FK_BillCustomers_Bills">
             <End Role="Bills" EntitySet="Bills" />
             <End Role="BillCustomers" EntitySet="BillCustomers" />
@@ -198,8 +245,7 @@
             <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IndraLaxmiImporiumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -409,7 +455,32 @@
             <End Role="Ledgers" EntitySet="Ledgers" />
             <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
           </AssociationSet>
+          <EntitySet Name="TransactionDetails" EntityType="IndraLaxmiImporiumModel.TransactionDetail" />
+          <EntitySet Name="TransactionMains" EntityType="IndraLaxmiImporiumModel.TransactionMain" />
         </EntityContainer>
+        <EntityType Name="TransactionDetail">
+          <Key>
+            <PropertyRef Name="TransactionDetailID" />
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="TransactionDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNumber" Type="Int32" />
+          <Property Name="LedgerNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Debit" Type="Double" />
+          <Property Name="Credit" Type="Double" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionMain">
+          <Key>
+            <PropertyRef Name="TransactionMainID" />
+          </Key>
+          <Property Name="TransactionMainID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNumber" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -492,6 +563,30 @@
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="ArtNo" ColumnName="ArtNo" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionDetails">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.TransactionDetail">
+              <MappingFragment StoreEntitySet="TransactionDetails">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LedgerNumber" ColumnName="LedgerNumber" />
+                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="TransactionDetailID" ColumnName="TransactionDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionMains">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.TransactionMain">
+              <MappingFragment StoreEntitySet="TransactionMains">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="TransactionMainID" ColumnName="TransactionMainID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

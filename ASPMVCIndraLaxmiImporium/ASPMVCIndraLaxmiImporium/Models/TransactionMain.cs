@@ -12,16 +12,12 @@ namespace ASPMVCIndraLaxmiImporium.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BillCustomer
+    public partial class TransactionMain
     {
-        public int BillCustomerID { get; set; }
-        public Nullable<int> CustomerCode { get; set; }
+        public int TransactionMainID { get; set; }
         public Nullable<int> BillNumber { get; set; }
-        public string CBM { get; set; }
-        public string TransportCode { get; set; }
+        public string Description { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public string Total { get; set; }
-    
-        public virtual Bill Bill { get; set; }
+        public string UserName { get; set; }
     }
 }

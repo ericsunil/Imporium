@@ -11,9 +11,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Ledger
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,12 +21,8 @@ namespace ASPMVCIndraLaxmiImporium.Models
         }
     
         public int LedgerID { get; set; }
-        [DisplayName("Ledger Number")]
-        [Required(ErrorMessage = "This field is required.")]
         public int LedgerNumber { get; set; }
         public string Type { get; set; }
-        [DisplayName("Customer")]
-        [Required(ErrorMessage = "This field is required.")]
         public Nullable<int> CustomerID { get; set; }
     
         public virtual Customer Customer { get; set; }

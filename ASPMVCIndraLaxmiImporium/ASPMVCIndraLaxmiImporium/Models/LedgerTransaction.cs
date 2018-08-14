@@ -11,20 +11,15 @@ namespace ASPMVCIndraLaxmiImporium.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class LedgerTransaction
     {
         public int LedgerTransactionID { get; set; }
-        [DisplayName("Ledger")]
-        [Required(ErrorMessage = "This field is required.")]
         public int LedgerID { get; set; }
         public Nullable<decimal> Debit { get; set; }
         public Nullable<decimal> Credit { get; set; }
         public Nullable<decimal> Balance { get; set; }
         public Nullable<decimal> Amount { get; set; }
-        [DisplayName("Pay Ledger")]
         public string PayLedger { get; set; }
     
         public virtual Ledger Ledger { get; set; }

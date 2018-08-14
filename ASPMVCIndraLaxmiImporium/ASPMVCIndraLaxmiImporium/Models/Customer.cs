@@ -11,9 +11,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,11 +24,8 @@ namespace ASPMVCIndraLaxmiImporium.Models
         }
     
         public int CustomerID { get; set; }
-        [DisplayName("Customer Name")]
-        [Required(ErrorMessage = "This field is required.")]
         public string CustomerName { get; set; }
         public string Type { get; set; }
-        [DisplayName("Previous Balance")]
         public string PreviousBalance { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,9 +11,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,8 +21,6 @@ namespace ASPMVCIndraLaxmiImporium.Models
         }
     
         public int ProductID { get; set; }
-        [DisplayName("Product Name")]
-        [Required(ErrorMessage = "This field is required.")]
         public string ProductName { get; set; }
         public string Size { get; set; }
         public string Pairs { get; set; }

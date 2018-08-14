@@ -5,19 +5,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="61c84ad4d66048058f02b2f899b85838" Name="Diagram1">
-        <EntityTypeShape EntityType="IndraLaxmiImporiumModel.BillCustomer" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IndraLaxmiImporiumModel.BillCustomer" PointX="5.25" PointY="4.75" Width="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.Bill" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.Customer" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.Ledger" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.LedgerTransaction" Width="1.5" PointX="5.25" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.Product" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="IndraLaxmiImporiumModel.FK_BillCustomers_Bills" ManuallyRouted="false" />
+        <AssociationConnector ManuallyRouted="false" Association="IndraLaxmiImporiumModel.FK_BillCustomers_Bills" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_Bills_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_Bills_Customers1" ManuallyRouted="false" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_Bills_Customers2" ManuallyRouted="false" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_Bills_Products" ManuallyRouted="false" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_Ledgers_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_LedgerTransactions_Ledgers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IndraLaxmiImporiumModel.TransactionDetail" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="IndraLaxmiImporiumModel.TransactionMain" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
