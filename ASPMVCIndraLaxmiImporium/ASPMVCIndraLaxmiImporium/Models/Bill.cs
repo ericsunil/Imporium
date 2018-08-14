@@ -19,8 +19,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
         {
             this.BillCustomers = new HashSet<BillCustomer>();
         }
-    
-        public int BillID { get; set; }
+   /*sdfdf*/        public int BillID { get; set; }
         public int BillNumber { get; set; }
         public Nullable<int> SN { get; set; }
         public Nullable<int> DebtorID { get; set; }
