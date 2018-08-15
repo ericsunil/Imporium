@@ -14,10 +14,19 @@ namespace ASPMVCIndraLaxmiImporium.Models
     
     public partial class TransactionMain
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TransactionMain()
+        {
+            this.TransactionDetails = new HashSet<TransactionDetail>();
+        }
+    
         public int TransactionMainID { get; set; }
         public Nullable<int> BillNumber { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string UserName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
     }
 }

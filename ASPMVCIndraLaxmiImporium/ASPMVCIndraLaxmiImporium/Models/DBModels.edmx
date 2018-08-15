@@ -78,23 +78,18 @@
           <Property Name="ArtNo" Type="nvarchar" MaxLength="50" />
           <Property Name="Mark" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TransactionDetails">
           <Key>
             <PropertyRef Name="TransactionDetailID" />
-            <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="TransactionDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BillNumber" Type="int" />
+          <Property Name="TransactionMainID" Type="int" />
           <Property Name="LedgerNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Debit" Type="float" />
           <Property Name="Credit" Type="float" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TransactionMains">
           <Key>
             <PropertyRef Name="TransactionMainID" />
@@ -189,6 +184,18 @@ warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TransactionDetails_TransactionMains1">
+          <End Role="TransactionMains" Type="Self.TransactionMains" Multiplicity="0..1" />
+          <End Role="TransactionDetails" Type="Self.TransactionDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionMains">
+              <PropertyRef Name="TransactionMainID" />
+            </Principal>
+            <Dependent Role="TransactionDetails">
+              <PropertyRef Name="TransactionMainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="IndraLaxmiImporiumModelStoreContainer">
           <EntitySet Name="BillCustomers" EntityType="Self.BillCustomers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
@@ -196,26 +203,8 @@ warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not 
           <EntitySet Name="Ledgers" EntityType="Self.Ledgers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LedgerTransactions" EntityType="Self.LedgerTransactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TransactionDetails].[TransactionDetailID] AS [TransactionDetailID], 
-    [TransactionDetails].[BillNumber] AS [BillNumber], 
-    [TransactionDetails].[LedgerNumber] AS [LedgerNumber], 
-    [TransactionDetails].[Description] AS [Description], 
-    [TransactionDetails].[Debit] AS [Debit], 
-    [TransactionDetails].[Credit] AS [Credit], 
-    [TransactionDetails].[CustomerID] AS [CustomerID]
-    FROM [dbo].[TransactionDetails] AS [TransactionDetails]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="TransactionMains" EntityType="Self.TransactionMains" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TransactionMains].[TransactionMainID] AS [TransactionMainID], 
-    [TransactionMains].[BillNumber] AS [BillNumber], 
-    [TransactionMains].[Description] AS [Description], 
-    [TransactionMains].[Date] AS [Date], 
-    [TransactionMains].[UserName] AS [UserName]
-    FROM [dbo].[TransactionMains] AS [TransactionMains]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionMains" EntityType="Self.TransactionMains" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BillCustomers_Bills" Association="Self.FK_BillCustomers_Bills">
             <End Role="Bills" EntitySet="Bills" />
             <End Role="BillCustomers" EntitySet="BillCustomers" />
@@ -243,6 +232,10 @@ warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not 
           <AssociationSet Name="FK_LedgerTransactions_Ledgers" Association="Self.FK_LedgerTransactions_Ledgers">
             <End Role="Ledgers" EntitySet="Ledgers" />
             <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TransactionDetails_TransactionMains1" Association="Self.FK_TransactionDetails_TransactionMains1">
+            <End Role="TransactionMains" EntitySet="TransactionMains" />
+            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -457,19 +450,23 @@ warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not 
           </AssociationSet>
           <EntitySet Name="TransactionDetails" EntityType="IndraLaxmiImporiumModel.TransactionDetail" />
           <EntitySet Name="TransactionMains" EntityType="IndraLaxmiImporiumModel.TransactionMain" />
+          <AssociationSet Name="FK_TransactionDetails_TransactionMains1" Association="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1">
+            <End Role="TransactionMain" EntitySet="TransactionMains" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TransactionDetail">
           <Key>
             <PropertyRef Name="TransactionDetailID" />
-            <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="TransactionDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BillNumber" Type="Int32" />
+          <Property Name="TransactionMainID" Type="Int32" />
           <Property Name="LedgerNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Debit" Type="Double" />
           <Property Name="Credit" Type="Double" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TransactionMain" Relationship="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1" FromRole="TransactionDetail" ToRole="TransactionMain" />
         </EntityType>
         <EntityType Name="TransactionMain">
           <Key>
@@ -480,7 +477,20 @@ warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not 
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TransactionDetails" Relationship="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1" FromRole="TransactionMain" ToRole="TransactionDetail" />
         </EntityType>
+        <Association Name="FK_TransactionDetails_TransactionMains1">
+          <End Type="IndraLaxmiImporiumModel.TransactionMain" Role="TransactionMain" Multiplicity="0..1" />
+          <End Type="IndraLaxmiImporiumModel.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionMain">
+              <PropertyRef Name="TransactionMainID" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="TransactionMainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -574,7 +584,7 @@ warning 6002: The table/view 'IndraLaxmiImporium.dbo.TransactionMains' does not 
                 <ScalarProperty Name="Debit" ColumnName="Debit" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="LedgerNumber" ColumnName="LedgerNumber" />
-                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="TransactionMainID" ColumnName="TransactionMainID" />
                 <ScalarProperty Name="TransactionDetailID" ColumnName="TransactionDetailID" />
               </MappingFragment>
             </EntityTypeMapping>

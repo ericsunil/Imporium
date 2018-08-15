@@ -165,6 +165,8 @@
     <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\LedgerTransactionController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TransactionDetailController.cs" />
+    <Compile Include="Controllers\TransactionMainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -7500,6 +7502,12 @@
     <Content Include="Views\BillCustomer\Index.cshtml" />
     <Content Include="Views\BillCustomer\ViewAll.cshtml" />
     <Content Include="Views\BillCustomer\AddorEdit.cshtml" />
+    <Content Include="Views\TransactionMain\AddorEdit.cshtml" />
+    <Content Include="Views\TransactionMain\Index.cshtml" />
+    <Content Include="Views\TransactionMain\ViewAll.cshtml" />
+    <Content Include="Views\TransactionDetail\Index.cshtml" />
+    <Content Include="Views\TransactionDetail\ViewAll.cshtml" />
+    <Content Include="Views\TransactionDetail\AddorEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
