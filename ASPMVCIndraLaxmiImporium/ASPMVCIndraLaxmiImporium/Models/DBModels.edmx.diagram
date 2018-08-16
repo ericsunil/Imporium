@@ -18,6 +18,9 @@
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_Bills_Products" ManuallyRouted="false" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_Ledgers_Customers" ManuallyRouted="false" />
         <AssociationConnector Association="IndraLaxmiImporiumModel.FK_LedgerTransactions_Ledgers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IndraLaxmiImporiumModel.TransactionDetail" Width="1.5" PointX="7.625" PointY="1" />
+        <EntityTypeShape EntityType="IndraLaxmiImporiumModel.TransactionMain" Width="1.5" PointX="5.375" PointY="1.125" />
+        <AssociationConnector Association="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

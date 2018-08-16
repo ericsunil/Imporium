@@ -61,7 +61,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     }
 
                 }
-                return RedirectToAction("");
+                return RedirectToAction("ViewAll");
                 //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllBillCustomer()), message = "Save Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -99,6 +99,17 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             List<Customer> objcity = new List<Customer>();
             objcity = new DBModel().Customers.Where(m => m.Type == CustomerType).ToList();
             SelectList obgcity = new SelectList(objcity, "CustomerID", "CustomerName", 0);
+            // return Content(objcity.Count+""+ classid);
+
+            return Json(obgcity, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult GetProduct()
+        {
+            List<Product> objcity = new List<Product>();
+            objcity = new DBModel().Products.ToList();
+            SelectList obgcity = new SelectList(objcity, "ProductID", "ProductName", 0);
             // return Content(objcity.Count+""+ classid);
 
             return Json(obgcity, JsonRequestBehavior.AllowGet);

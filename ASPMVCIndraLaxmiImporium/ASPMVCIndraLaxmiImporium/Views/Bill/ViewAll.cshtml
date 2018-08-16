@@ -9,10 +9,10 @@
 <table class="table table-bordered table-responsive table-striped table-condensed"id="dataTable">
     <thead>
         <tr>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.SN)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.DebtorID)
             </th>
             <th>
@@ -20,7 +20,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CredtorID)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.ProductID)
             </th>
@@ -47,20 +47,21 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.SN)
-                </td>
-                <td>
+                </td>*@
+                @*<td>
                     @Html.DisplayFor(modelItem => item.DebtorID)
-                </td>
-                <td>
+                </td>*@
+                @*<td>
                     @Html.DisplayFor(modelItem => item.TransportID)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CredtorID)
-                </td>
+                </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductID)
+                    @Html.DisplayFor(modelItem => item.ProductID) 
+                    
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Orderded)
@@ -79,10 +80,11 @@
                 </td>
                 <td>
                     <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "Bill", new { id=@item.BillID })')"> <i class="fa fa-edit"></i> Edit</a>
-                    <a class="btn btn-danger" onclick="Delete('@Url.Action("Delete", "Bill", new { id=@item.BillID })')"><i class="fa fa-trash"></i> Delete</a>
+                    <a class="btn btn-danger" id="BillDetailDelete" onclick="Delete('@Url.Action("Delete", "Bill", new { id=@item.BillID })')"><i class="fa fa-trash"></i> Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 
 </table>
+

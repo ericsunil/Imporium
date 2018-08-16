@@ -16,67 +16,99 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.BillCustomerID)
 
-    @*<div class="form-group">
-            @Html.LabelFor(model => model.CustomerCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset>
+                <legend>Bill Details</legend>
+                <div class="form-group">
+                    @Html.Label("Debtor Name", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.CustomerCode, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", required = "required" })
+
+
+                        @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Bill Number", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+
+            <fieldset style="min-height: 194px; margin-bottom: 30px;">
+                <legend>Transport Details</legend>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CBM, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.CBM, new { htmlAttributes = new { @class = "form-control", placeholder = "CBM" } })
+                        @Html.ValidationMessageFor(model => model.CBM, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TransportCode, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(model => model.TransportCode, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TransportCode, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+
+            </fieldset>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Search Product", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ProductCode", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", @onchange = "javascript:GetDetailFor('ProductCode','/Product/Detail/','Detail')" })
+
+                </div>
             </div>
-        </div>*@
-
-
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerCode, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.CustomerCode, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control" ,@onchange = "javascript:GetDropDown('Creditor','/BillCustomer/GetCustomer/','CustomerCode')" })
-            @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
         </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.Label("Ordered", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Editor("Order", new { htmlAttributes = new { @class = "form-control", placeholder = "Order" } })
+
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <div id="Detail"></div>
+        <div class="clearfix"></div>
+        <div id="BillDetail"></div>
+        <div class="clearfix"></div>
     </div>
 
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CBM, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CBM, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CBM, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.TransportCode, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*@Html.EditorFor(model => model.TransportCode, new { htmlAttributes = new { @class = "form-control" } })*@
-            @Html.DropDownListFor(model => model.TransportCode, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", @onchange = "javascript:GetDropDown('Creditor','/BillCustomer/GetCustomer/','CustomerCode')" })
-            @Html.ValidationMessageFor(model => model.TransportCode, "", new { @class = "text-danger" })
-
-            @Html.ValidationMessageFor(model => model.TransportCode, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @*<input type="date" class="form-control" name="Date" value="model.Date"/>*@
-
-            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" , @type = "date" } })
-            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    
 
     <div class="form-group">
         @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", readOnly= "readonly" } })
             @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -90,15 +122,94 @@
 }
 <script>
     $(function(){
-
-        GetDropDown('Creditor', '/BillCustomer/GetCustomer/', 'CustomerCode')
-
-
+        GetDropDown('Debtor', '/BillCustomer/GetCustomer/', 'CustomerCode')
 
         GetDropDown('Transport', '/BillCustomer/GetCustomer/', 'TransportCode')
 
+    GetDropDown('a', '/BillCustomer/GetProduct/', 'ProductCode')
+
+    });
+    $(document).on("click", "#BillDetailDelete", function () {
+        $.ajax({
+            type: "get",
+            url: '/Bill/ViewAll',
+            data: { id: $("#BillNumber").val() },
+            success: function (data) {
+                $("#BillDetail").html(data).show();
+                var total = 0;
+                $("#BillDetail tbody tr").each(function () {
+                    total += parseFloat($(this).find('td:eq(6)').text());
+                });
+                //console.log(total);
+                $("#Total").val(total);
+            }
+
+        });
     });
 
+    $('#Order').keypress(function(e) {
+        if(e.which == 13) {
+     
+            var model = {
+                BillNumber: parseInt($('#BillNumber').val()),
+                SN: null,
+                DebtorID: parseInt($('#CustomerCode').val()),
+                TransportID: parseInt($('#TransportCode').val()),
+                CredtorID: null,
+                ProductID: parseInt($('#ProductCode').val()),
+                Orderded: parseInt($('#Order').val()),
+                //Size:$('#Size').val(),
+                Pair: parseInt($('#Pairs').val()),
+                TotalPair: parseInt($('#Order').val()*$('#Pairs').val()),
+                Rate: parseFloat($('#Rate').val()),
+                TotalAmount: parseFloat($('#Order').val()*$('#Pairs').val()*$('#Rate').val()),
+                IsCommit:false,
+                Ispaid: false,
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            };
+            console.log(model)
+            e.preventDefault();
+            var ajaxConfig = {
+                type: 'POST',
+                url: '/Bill/AddorEdit',
+                data: model, success: function (response) {
+                    if (response.success) {
+                     
+                        //success messege
+                        $.notify(response.message, "success");
+                       
+                    }
+                    else {
+                        //error message
+                        $.notify(response.message, "error");
+                    }
+
+                    $.ajax({
+                        type: "get",
+                        url: '/Bill/ViewAll',
+                        data: { id: $("#BillNumber").val() },
+                        success: function (data) {
+                            $("#BillDetail").html(data).show();
+                            var total = 0;
+                            $("#BillDetail tbody tr").each(function () {
+                               total+= parseFloat($(this).find('td:eq(5)').text());
+                            });
+                            //console.log(total);
+                            $("#Total").val(total);
+                        }
+                        
+                    });
+                    
+                }
+             
+            }
+
+            $.ajax(ajaxConfig);
+          
+        }
+    });
+
+    
 
 </script>
 

@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BillController.cs" />
     <Compile Include="Controllers\BillCustomerController.cs" />
+    <Compile Include="Controllers\ChargeTarrifController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LedgerController.cs" />
@@ -202,6 +203,12 @@
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TransactionDetail.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TransactionMain.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -7494,6 +7501,10 @@
     <Content Include="Views\BillCustomer\Index.cshtml" />
     <Content Include="Views\BillCustomer\ViewAll.cshtml" />
     <Content Include="Views\BillCustomer\AddorEdit.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\ChargeTarrif\Index.cshtml" />
+    <Content Include="Views\ChargeTarrif\ViewAll.cshtml" />
+    <Content Include="Views\ChargeTarrif\AddorEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

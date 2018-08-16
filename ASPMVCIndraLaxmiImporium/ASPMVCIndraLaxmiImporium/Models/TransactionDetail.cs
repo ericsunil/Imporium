@@ -14,19 +14,20 @@ namespace ASPMVCIndraLaxmiImporium.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class LedgerTransaction
+    public partial class TransactionDetail
     {
-        public int LedgerTransactionID { get; set; }
-        [DisplayName("Ledger")]
+        public int TransactionDetailID { get; set; }
+        [DisplayName("Transaction Main")]
         [Required(ErrorMessage = "This field is required.")]
-        public int LedgerID { get; set; }
-        public Nullable<decimal> Debit { get; set; }
-        public Nullable<decimal> Credit { get; set; }
-        public Nullable<decimal> Balance { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-        [DisplayName("Pay Ledger")]
-        public string PayLedger { get; set; }
-
-        public virtual Ledger Ledger { get; set; }
+        public Nullable<int> TransactionMainID { get; set; }
+        [DisplayName("Ledger Number")]
+        public string LedgerNumber { get; set; }
+        public string Description { get; set; }
+        public Nullable<double> Debit { get; set; }
+        public Nullable<double> Credit { get; set; }
+        [DisplayName("Customer")]
+        public int CustomerID { get; set; }
+    
+        public virtual TransactionMain TransactionMain { get; set; }
     }
 }

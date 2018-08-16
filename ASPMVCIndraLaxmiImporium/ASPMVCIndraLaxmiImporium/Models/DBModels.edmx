@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IndraLaxmiImporiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IndraLaxmiImporiumModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BillCustomers">
           <Key>
             <PropertyRef Name="BillCustomerID" />
@@ -77,6 +77,28 @@
           <Property Name="Rate" Type="nvarchar" MaxLength="50" />
           <Property Name="ArtNo" Type="nvarchar" MaxLength="50" />
           <Property Name="Mark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TransactionDetails">
+          <Key>
+            <PropertyRef Name="TransactionDetailID" />
+          </Key>
+          <Property Name="TransactionDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionMainID" Type="int" />
+          <Property Name="LedgerNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Debit" Type="float" />
+          <Property Name="Credit" Type="float" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionMains">
+          <Key>
+            <PropertyRef Name="TransactionMainID" />
+          </Key>
+          <Property Name="TransactionMainID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BillNumber" Type="int" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Date" Type="date" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_BillCustomers_Bills">
           <End Role="Bills" Type="Self.Bills" Multiplicity="0..1" />
@@ -162,6 +184,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TransactionDetails_TransactionMains1">
+          <End Role="TransactionMains" Type="Self.TransactionMains" Multiplicity="0..1" />
+          <End Role="TransactionDetails" Type="Self.TransactionDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionMains">
+              <PropertyRef Name="TransactionMainID" />
+            </Principal>
+            <Dependent Role="TransactionDetails">
+              <PropertyRef Name="TransactionMainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="IndraLaxmiImporiumModelStoreContainer">
           <EntitySet Name="BillCustomers" EntityType="Self.BillCustomers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
@@ -169,6 +203,8 @@
           <EntitySet Name="Ledgers" EntityType="Self.Ledgers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LedgerTransactions" EntityType="Self.LedgerTransactions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionMains" EntityType="Self.TransactionMains" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_BillCustomers_Bills" Association="Self.FK_BillCustomers_Bills">
             <End Role="Bills" EntitySet="Bills" />
             <End Role="BillCustomers" EntitySet="BillCustomers" />
@@ -197,9 +233,12 @@
             <End Role="Ledgers" EntitySet="Ledgers" />
             <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
           </AssociationSet>
+          <AssociationSet Name="FK_TransactionDetails_TransactionMains1" Association="Self.FK_TransactionDetails_TransactionMains1">
+            <End Role="TransactionMains" EntitySet="TransactionMains" />
+            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IndraLaxmiImporiumModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -409,7 +448,49 @@
             <End Role="Ledgers" EntitySet="Ledgers" />
             <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
           </AssociationSet>
+          <EntitySet Name="TransactionDetails" EntityType="IndraLaxmiImporiumModel.TransactionDetail" />
+          <EntitySet Name="TransactionMains" EntityType="IndraLaxmiImporiumModel.TransactionMain" />
+          <AssociationSet Name="FK_TransactionDetails_TransactionMains1" Association="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1">
+            <End Role="TransactionMain" EntitySet="TransactionMains" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="TransactionDetail">
+          <Key>
+            <PropertyRef Name="TransactionDetailID" />
+          </Key>
+          <Property Name="TransactionDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionMainID" Type="Int32" />
+          <Property Name="LedgerNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Debit" Type="Double" />
+          <Property Name="Credit" Type="Double" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TransactionMain" Relationship="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1" FromRole="TransactionDetail" ToRole="TransactionMain" />
+        </EntityType>
+        <EntityType Name="TransactionMain">
+          <Key>
+            <PropertyRef Name="TransactionMainID" />
+          </Key>
+          <Property Name="TransactionMainID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BillNumber" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TransactionDetails" Relationship="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1" FromRole="TransactionMain" ToRole="TransactionDetail" />
+        </EntityType>
+        <Association Name="FK_TransactionDetails_TransactionMains1">
+          <End Type="IndraLaxmiImporiumModel.TransactionMain" Role="TransactionMain" Multiplicity="0..1" />
+          <End Type="IndraLaxmiImporiumModel.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionMain">
+              <PropertyRef Name="TransactionMainID" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="TransactionMainID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -492,6 +573,30 @@
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="ArtNo" ColumnName="ArtNo" />
                 <ScalarProperty Name="Mark" ColumnName="Mark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionDetails">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.TransactionDetail">
+              <MappingFragment StoreEntitySet="TransactionDetails">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="Debit" ColumnName="Debit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LedgerNumber" ColumnName="LedgerNumber" />
+                <ScalarProperty Name="TransactionMainID" ColumnName="TransactionMainID" />
+                <ScalarProperty Name="TransactionDetailID" ColumnName="TransactionDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionMains">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.TransactionMain">
+              <MappingFragment StoreEntitySet="TransactionMains">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
+                <ScalarProperty Name="TransactionMainID" ColumnName="TransactionMainID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

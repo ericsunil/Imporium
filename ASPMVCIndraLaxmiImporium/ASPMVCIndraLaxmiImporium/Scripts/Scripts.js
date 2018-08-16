@@ -144,3 +144,29 @@ function GetDropDownFor(_Id, url, target) {
     });
 }
 
+
+function GetDetailFor(_Id, url, target) {
+    //   alert(_Id.value + url+ target);
+
+    $.ajax({
+        type: "get",
+        url: url,
+        data: { id: $("#" + _Id).val() },
+        success: function (data) {
+            
+            //var a = data; // This line shows error.
+            //var markup = "<option value='0'>-- Select --</option>";
+            //for (var x = 0; x < data.length; x++) {
+            //    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+            //}
+            $("#" + target).html(data).show();
+        }
+    });
+}
+
+
+
+
+
+
+

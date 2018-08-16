@@ -14,25 +14,24 @@ namespace ASPMVCIndraLaxmiImporium.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class Ledger
+    public partial class TransactionMain
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ledger()
+        public TransactionMain()
         {
-            this.LedgerTransactions = new HashSet<LedgerTransaction>();
+            this.TransactionDetails = new HashSet<TransactionDetail>();
         }
-
-        public int LedgerID { get; set; }
-        [DisplayName("Ledger Number")]
+    
+        public int TransactionMainID { get; set; }
+        [DisplayName("Bill Number")]
         [Required(ErrorMessage = "This field is required.")]
-        public int LedgerNumber { get; set; }
-        public string Type { get; set; }
-        [DisplayName("Customer")]
-        [Required(ErrorMessage = "This field is required.")]
-        public Nullable<int> CustomerID { get; set; }
-
-        public virtual Customer Customer { get; set; }
+        public Nullable<int> BillNumber { get; set; }
+        public string Description { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        [DisplayName("User Name")]
+        public string UserName { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LedgerTransaction> LedgerTransactions { get; set; }
+        public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
     }
 }

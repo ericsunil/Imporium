@@ -24,7 +24,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
             this.Bills2 = new HashSet<Bill>();
             this.Ledgers = new HashSet<Ledger>();
         }
-    
+
         public int CustomerID { get; set; }
         [DisplayName("Customer Name")]
         [Required(ErrorMessage = "This field is required.")]
@@ -32,7 +32,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
         public string Type { get; set; }
         [DisplayName("Previous Balance")]
         public string PreviousBalance { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bill> Bills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

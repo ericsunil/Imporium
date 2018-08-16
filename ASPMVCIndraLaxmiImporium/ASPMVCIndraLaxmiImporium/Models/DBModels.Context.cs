@@ -31,5 +31,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
         public virtual DbSet<Ledger> Ledgers { get; set; }
         public virtual DbSet<LedgerTransaction> LedgerTransactions { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<TransactionDetail> TransactionDetails { get; set; }
+        public virtual DbSet<TransactionMain> TransactionMains { get; set; }
     }
 }

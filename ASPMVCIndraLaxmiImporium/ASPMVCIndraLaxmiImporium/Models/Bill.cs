@@ -20,7 +20,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
         {
             this.BillCustomers = new HashSet<BillCustomer>();
         }
-    
+
         public int BillID { get; set; }
         [DisplayName("Bill Number")]
         public int BillNumber { get; set; }
@@ -43,7 +43,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
         public Nullable<decimal> TotalAmount { get; set; }
         public Nullable<bool> IsCommit { get; set; }
         public Nullable<bool> Ispaid { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BillCustomer> BillCustomers { get; set; }
         public virtual Customer Customer { get; set; }

@@ -8,52 +8,50 @@ using System.Web.Mvc;
 
 namespace ASPMVCIndraLaxmiImporium.Controllers
 {
-    public class BillController : Controller
+    public class ChargeTarrifController : Controller
     {
-        // GET: Bill
+        // GET: ChargeTarrif
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult ViewAll(int id=0)
+        public ActionResult ViewAll()
         {
-
-            return View(GetAllBill(id));
+            return View(GetAllChargeTarrif());
         }
 
-        IEnumerable<Bill> GetAllBill( int id)
+        IEnumerable<TransactionMain> GetAllChargeTarrif()
         {
             using (DBModel db = new DBModel())
             {
-                return db.Bills.Where(x => x.BillNumber == id).ToList<Bill>();
+                return db.TransactionMains.ToList<TransactionMain>();
             }
         }
 
         //[HttpGet] iterator will be by default
         public ActionResult AddorEdit(int id = 0)
         {
-            Bill emp = new Bill();
+            TransactionMain emp = new TransactionMain();
             if (id != 0)
             {
                 using (DBModel db = new DBModel())
                 {
-                    emp = db.Bills.Where(x => x.BillID == id).FirstOrDefault<Bill>();
+                    emp = db.TransactionMains.Where(x => x.TransactionMainID == id).FirstOrDefault<TransactionMain>();
                 }
             }
             return View(emp);
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult AddorEdit(Bill emp)
+        public ActionResult AddorEdit(TransactionMain emp)
         {
             try
             {
                 using (DBModel db = new DBModel())
                 {
-                    if (emp.BillID == 0)
+                    if (emp.TransactionMainID == 0)
                     {
-                        db.Bills.Add(emp);
+                        db.TransactionMains.Add(emp);
                         db.SaveChanges();
                     }
                     else
@@ -63,14 +61,12 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     }
 
                 }
-                return Json(new { success = true, message = "Data Added Successfully" }, JsonRequestBehavior.AllowGet);
-            //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllBill()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
-        }
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllChargeTarrif()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+            }
             catch (Exception ex)
             {
 
-                return Json(new { success = false, message = ex.Message
-    }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
         [ValidateAntiForgeryToken]
@@ -80,13 +76,12 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             {
                 using (DBModel db = new DBModel())
                 {
-                    Bill emp = db.Bills.Where(x => x.BillID == id).FirstOrDefault<Bill>();
-                    db.Bills.Remove(emp);
+                    TransactionMain emp = db.TransactionMains.Where(x => x.TransactionMainID == id).FirstOrDefault<TransactionMain>();
+                    db.TransactionMains.Remove(emp);
                     db.SaveChanges();
-                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllBill(emp.BillNumber)), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
 
                 }
-                
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllChargeTarrif()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -89,5 +89,18 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult Detail(int id = 0)
+        {
+         
+            Product objcity = new DBModel().Products.Find(id);
+
+            return View(objcity);
+        }
+
+        public ActionResult ProductNameDetail(int id = 0)
+        {
+            return Content(new DBModel().Products.Find(id).ProductName);
+        }
     }
 }
