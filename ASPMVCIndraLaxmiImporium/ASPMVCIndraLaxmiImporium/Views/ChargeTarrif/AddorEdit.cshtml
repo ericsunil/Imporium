@@ -1,57 +1,202 @@
 ﻿@model ASPMVCIndraLaxmiImporium.Models.TransactionMain
 
 @{
-    ViewBag.Title = "AddorEdit";
-    Layout = null;
+	ViewBag.Title = "AddorEdit";
+	Layout = null;
 }
+<style>
+	.maxl {
+		margin: 25px;
+	}
+
+	.inline {
+		display: inline-block;
+	}
+
+		.inline + .inline {
+			margin-left: 10px;
+		}
+
+	.radio {
+		color: #999;
+		font-size: 15px;
+		position: relative;
+	}
+
+		.radio span {
+			position: relative;
+			padding-left: 20px;
+		}
+
+			.radio span:after {
+				content: '';
+				width: 15px;
+				height: 15px;
+				border: 3px solid;
+				position: absolute;
+				left: 0;
+				top: 1px;
+				border-radius: 100%;
+				-ms-border-radius: 100%;
+				-moz-border-radius: 100%;
+				-webkit-border-radius: 100%;
+				box-sizing: border-box;
+				-ms-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+			}
+
+		.radio input[type="radio"] {
+			cursor: pointer;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			opacity: 0;
+			filter: alpha(opacity=0);
+			-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"
+		}
+
+			.radio input[type="radio"]:checked + span {
+				color: #0B8;
+			}
+
+				.radio input[type="radio"]:checked + span:before {
+					content: '';
+					width: 5px;
+					height: 5px;
+					position: absolute;
+					background: #0B8;
+					left: 5px;
+					top: 6px;
+					border-radius: 100%;
+					-ms-border-radius: 100%;
+					-moz-border-radius: 100%;
+					-webkit-border-radius: 100%;
+				}
+</style>
 
 
 @using (Html.BeginForm("AddorEdit", "ChargeTarrif", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_resetUrl = Url.Action("AddorEdit", "ChargeTarrif", new { id = 0 }) })) //data-resetUrl
 {
-    @Html.AntiForgeryToken()
+	@Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+	<div class="form-horizontal">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.TransactionMainID)
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.TransactionMainID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Bill Number" } })
+				@Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		@*username etikai rakhya*@
+		<div class="form-group">
+			@Html.Label("Creditor Name", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.UserName, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", required = "required" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", type="date" } })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
+				@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+			</div>
+		</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+		<!-- radio -->
+		<div class="maxl form-group">
+			@Html.Label("Paid By", htmlAttributes: new { @class = "control-label col-md-2" })
+			<label class="radio inline col-md-3">
+				<input type="radio" name="Paidby" class="Transport" id="Self" value="Self" checked>
+				<span> Self </span>
+			</label>
+			<label class="radio inline col-md-3">
+				<input type="radio" name="Paidby" class="Transport" id="Transport" value="Transport">
+				<span>Transport </span>
+			</label>
+			<div class="col-md-3" id="TransportData">
+				@Html.DropDownListFor(model => model.Description, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+				@Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Description" } })
+					@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+				</div>
+			</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+				@Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.Label("Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Amount" } })
+				@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Save" id="Save" class="btn btn-success" />
+			</div>
+		</div>
+	</div>
 }
+
+<script>
+	$(function(){
+		GetDropDown('Creditor', '/BillCustomer/GetCustomer/', 'UserName')
+
+		GetDropDown('Transport', '/BillCustomer/GetCustomer/', 'Description')
+
+	});
+
+	//self and transport radio button with hidden transport type
+	$(document).ready(function(){
+		$('#TransportData').hide();
+		$("#Transport") // select the radio by its id
+		.change(function(){ // bind a function to the change event
+			if( $(this).is(":checked") ){ // check if the radio is checked
+		$('#TransportData').show();
+				//var val = $(this).val(); // retrieve the value
+			}
+		});
+
+		$("#Self") // select the radio by its id
+			.change(function(){ // bind a function to the change event
+				if( $(this).is(":checked") ){ // check if the radio is checked
+			$('#TransportData').hide();
+					//var val = $(this).val(); // retrieve the value
+				}
+			});
+
+	
+
+		//data save
+		$('#Save').click(function(e) {
+
+	var a=SaveTransactionMain($('#BillNumber').val(),$('#Description').val(),$('#Date').val(),$('#UserName').val());
+		//TransactionMainID, LedgerNumber, Description, Debit, Credit, CustomerID
+			SaveTransactionDetail($(a, $('#Description').val(),$('#Date').val(),$('#UserName').val());
+		
+		});
+	});
+
+
+
+</script>
+
+
 

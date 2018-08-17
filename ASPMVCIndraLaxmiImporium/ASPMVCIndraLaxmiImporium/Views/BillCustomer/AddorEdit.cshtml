@@ -7,8 +7,8 @@
 
 
 
-@using (Html.BeginForm("AddorEdit", "BillCustomer", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_resetUrl = Url.Action("AddorEdit", "BillCustomer", new { id = 0 }) })) //data-resetUrl
-{
+@*@using (Html.BeginForm("AddorEdit", "BillCustomer", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_resetUrl = Url.Action("AddorEdit", "BillCustomer", new { id = 0 }) })) //data-resetUrl
+{*@
 @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
@@ -119,7 +119,7 @@
         </div>
     </div>
 </div>
-}
+@*}*@
 <script>
     $(function(){
         GetDropDown('Debtor', '/BillCustomer/GetCustomer/', 'CustomerCode')

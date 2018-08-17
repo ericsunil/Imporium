@@ -8,50 +8,51 @@ using System.Web.Mvc;
 
 namespace ASPMVCIndraLaxmiImporium.Controllers
 {
-    public class ChargeTarrifController : Controller
+    public class TransactionDetailController : Controller
     {
-        // GET: ChargeTarrif
+        // GET: TransactionDetail
         public ActionResult Index()
         {
             return View();
         }
+
         public ActionResult ViewAll()
         {
-            return View(GetAllChargeTarrif());
+            return View(GetAllTransactionDetail());
         }
 
-        IEnumerable<TransactionMain> GetAllChargeTarrif()
+        IEnumerable<TransactionDetail> GetAllTransactionDetail()
         {
             using (DBModel db = new DBModel())
             {
-                return db.TransactionMains.ToList<TransactionMain>();
+                return db.TransactionDetails.ToList<TransactionDetail>();
             }
         }
 
         //[HttpGet] iterator will be by default
         public ActionResult AddorEdit(int id = 0)
         {
-            TransactionMain emp = new TransactionMain();
+            TransactionDetail emp = new TransactionDetail();
             if (id != 0)
             {
                 using (DBModel db = new DBModel())
                 {
-                    emp = db.TransactionMains.Where(x => x.TransactionMainID == id).FirstOrDefault<TransactionMain>();
+                    emp = db.TransactionDetails.Where(x => x.TransactionDetailID == id).FirstOrDefault<TransactionDetail>();
                 }
             }
             return View(emp);
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult AddorEdit(TransactionMain emp)
+        public ActionResult AddorEdit(TransactionDetail emp)
         {
             try
             {
                 using (DBModel db = new DBModel())
                 {
-                    if (emp.TransactionMainID == 0)
+                    if (emp.TransactionDetailID == 0)
                     {
-                        db.TransactionMains.Add(emp);
+                        db.TransactionDetails.Add(emp);
                         db.SaveChanges();
                     }
                     else
@@ -62,7 +63,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
 
                 }
                 return Json(new { success = true, message = "Data Added Successfully" }, JsonRequestBehavior.AllowGet);
-                //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllChargeTarrif()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+                //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllTransactionDetail()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -77,12 +78,12 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             {
                 using (DBModel db = new DBModel())
                 {
-                    TransactionMain emp = db.TransactionMains.Where(x => x.TransactionMainID == id).FirstOrDefault<TransactionMain>();
-                    db.TransactionMains.Remove(emp);
+                    TransactionDetail emp = db.TransactionDetails.Where(x => x.TransactionDetailID == id).FirstOrDefault<TransactionDetail>();
+                    db.TransactionDetails.Remove(emp);
                     db.SaveChanges();
 
                 }
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllChargeTarrif()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllTransactionDetail()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

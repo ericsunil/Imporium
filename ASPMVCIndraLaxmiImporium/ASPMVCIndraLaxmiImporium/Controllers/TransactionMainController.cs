@@ -8,19 +8,20 @@ using System.Web.Mvc;
 
 namespace ASPMVCIndraLaxmiImporium.Controllers
 {
-    public class ChargeTarrifController : Controller
+    public class TransactionMainController : Controller
     {
-        // GET: ChargeTarrif
+        // GET: TransactionMain
         public ActionResult Index()
         {
             return View();
         }
+
         public ActionResult ViewAll()
         {
-            return View(GetAllChargeTarrif());
+            return View(GetAllTransactionMain());
         }
 
-        IEnumerable<TransactionMain> GetAllChargeTarrif()
+        IEnumerable<TransactionMain> GetAllTransactionMain()
         {
             using (DBModel db = new DBModel())
             {
@@ -61,8 +62,8 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     }
 
                 }
-                return Json(new { success = true, message = "Data Added Successfully" }, JsonRequestBehavior.AllowGet);
-                //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllChargeTarrif()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = emp.TransactionMainID }, JsonRequestBehavior.AllowGet);
+                //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllTransactionMain()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -82,7 +83,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     db.SaveChanges();
 
                 }
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllChargeTarrif()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllTransactionMain()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

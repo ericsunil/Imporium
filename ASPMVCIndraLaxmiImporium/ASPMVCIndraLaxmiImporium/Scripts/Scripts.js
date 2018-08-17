@@ -164,6 +164,68 @@ function GetDetailFor(_Id, url, target) {
     });
 }
 
+function SaveTransactionMain(BillNumber, Description, Date, UserName) {
+    //   alert(_Id.value + url+ target);
+
+    $.ajax({
+        type: "post",
+        url: "/TransactionMain/AddorEdit",
+        data: { BillNumber: BillNumber, Description: Description, Date: Date, UserName: UserName, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() },
+        success: function (data) {
+            return data.message;
+
+
+            //var a = data; // This line shows error.
+            //var markup = "<option value='0'>-- Select --</option>";
+            //for (var x = 0; x < data.length; x++) {
+            //    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+            //}
+            //$("#" + target).html(data).show();
+        }
+    });
+}
+
+function SaveTransactionDetail(TransactionMainID, LedgerNumber, Description, Debit, Credit, CustomerID) {
+    //   alert(_Id.value + url+ target);
+
+    $.ajax({
+        type: "post",
+        url: "/TransactionDetail/AddorEdit",
+        data: { TransactionMainID: TransactionMainID, LedgerNumber: LedgerNumber, Description: Description, Debit: Debit, Credit: Credit, CustomerID: CustomerID, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() },
+        success: function (data) {
+
+            //var a = data; // This line shows error.
+            //var markup = "<option value='0'>-- Select --</option>";
+            //for (var x = 0; x < data.length; x++) {
+            //    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+            //}
+            //$("#" + target).html(data).show();
+        }
+    });
+}
+
+//for customer and ledger number
+function SaveCustomer(CustomerName, Type, PreviousBalance) {
+    $.ajax({
+        type: "post",
+        url: "/Customer/AddorEdit",
+        data: { CustomerName: CustomerName, Type: Type, PreviousBalance: PreviousBalance, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() },
+        success: function (data) {
+            return data.message;
+        }
+    });
+}
+function SaveLedger(LedgerNumber, Type, CustomerID) {
+    $.ajax({
+        type: "post",
+        url: "/Ledger/AddorEdit",
+        data: { LedgerNumber: LedgerNumber, Type: Type, CustomerID: CustomerID, __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() },
+        success: function (data) {
+            return data.message;
+        }
+    });
+}
+
 
 
 
