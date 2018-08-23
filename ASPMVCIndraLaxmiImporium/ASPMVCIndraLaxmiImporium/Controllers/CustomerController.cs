@@ -55,7 +55,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                         db.Customers.Add(emp);
                         db.SaveChanges();
                        
-                        LedgerController.BackendPost(new Ledger() { LedgerID=0, LedgerNumber=0, Type=emp.Type,CustomerID=emp.CustomerID });
+                        LedgerController.BackendPost(new Ledger() { LedgerID=0, LedgerName="Person", Type=emp.Type,CustomerID=emp.CustomerID });
                     }
                     else
                     {

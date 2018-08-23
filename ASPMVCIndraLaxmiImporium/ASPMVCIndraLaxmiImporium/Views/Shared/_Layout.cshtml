@@ -241,15 +241,16 @@
 
 
                     @*@Html.ActionLink("Home", "Index", "Home")*@
-                    <li><a href="Customer"><i class="fa fa-book"></i> <span>Customer</span></a></li>
-                    <li><a href="Product"><i class="fa fa-book"></i> <span>Product</span></a></li>
-                    <li><a href="Bill"><i class="fa fa-book"></i> <span>Bill</span></a></li>
-                    <li><a href="BillCustomer"><i class="fa fa-book"></i> <span>Bill Customer</span></a></li>
-                    <li><a href="Ledger"><i class="fa fa-book"></i> <span>Ledger</span></a></li>
-                    <li><a href="LedgerTransaction"><i class="fa fa-book"></i> <span>Ledger Transaction</span></a></li>
-                    <li><a href="ChargeTarrif"><i class="fa fa-book"></i> <span>Charge Tarrif</span></a></li>
-                    <li><a href="TransactionMain"><i class="fa fa-book"></i> <span>Transaction Main</span></a></li>
-                    <li><a href="TransactionDetail"><i class="fa fa-book"></i> <span>Transaction Detail</span></a></li>
+                    <li><a href="Customer"><i class="fa fa-user-plus"></i> <span>Customer</span></a></li>
+                    <li><a href="Product"><i class="fa fa-ship"></i> <span>Product</span></a></li>
+                    @*<li><a href="Bill"><i class="fa fa-list-alt"></i> <span>Bill</span></a></li>*@
+                    <li><a href="BillCustomer"><i class="fa fa-money"></i> <span>Bill Customer</span></a></li>
+                    <li><a href="TarrifCharge"><i class="fa fa-book"></i> <span>Tarrif Charge</span></a></li>
+                    @*<li><a href="Ledger"><i class="fa fa-book"></i> <span>Ledger</span></a></li>
+        <li><a href="LedgerTransaction"><i class="fa fa-book"></i> <span>Ledger Transaction</span></a></li>*@
+                    @*<li><a href="ChargeTarrif"><i class="fa fa-book"></i> <span>Charge Tarrif</span></a></li>*@
+                    @*<li><a href="TransactionMain"><i class="fa fa-book"></i> <span>Transaction Main</span></a></li>
+        <li><a href="TransactionDetail"><i class="fa fa-book"></i> <span>Transaction Detail</span></a></li>*@
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -447,47 +448,14 @@
     <!-- ./wrapper -->
     @Scripts.Render("~/Js")
 
-    <script src="~/Scripts/Scripts.js"></script>
-    <script src="~/Scripts/notify.min.js"></script>
+    @*<script src="~/Scripts/Scripts.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>*@
 
     <script>
         $(document).ready(function () {
             $('.sidebar-menu').tree()
         })</script>
 </body>
-@*<body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>
-
-        @*Scripts.Render("~/bundles/jquery")
-        @*Scripts.Render("~/bundles/bootstrap")*
-        @Scripts.Render("~/Js")
-        @RenderSection("scripts", required: false)
-    </body>*@
 </html>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -501,5 +469,4 @@
             $('select').select2();
         });
     });
-</script>
 </script>

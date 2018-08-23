@@ -11,44 +11,22 @@ namespace ASPMVCIndraLaxmiImporium.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Bill
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bill()
-        {
-            this.BillCustomers = new HashSet<BillCustomer>();
-        }
-
         public int BillID { get; set; }
-        [DisplayName("Bill Number")]
         public int BillNumber { get; set; }
-        [DisplayName("S.N.")]
         public Nullable<int> SN { get; set; }
-        [DisplayName("Debtor")]
         public Nullable<int> DebtorID { get; set; }
-        [DisplayName("Transport")]
         public Nullable<int> TransportID { get; set; }
-        [DisplayName("Credtor")]
         public Nullable<int> CredtorID { get; set; }
-        [DisplayName("Product")]
         public Nullable<int> ProductID { get; set; }
         public Nullable<int> Orderded { get; set; }
         public Nullable<int> Pair { get; set; }
-        [DisplayName("Total Pair")]
         public Nullable<int> TotalPair { get; set; }
         public Nullable<decimal> Rate { get; set; }
-        [DisplayName("Total Amount")]
         public Nullable<decimal> TotalAmount { get; set; }
         public Nullable<bool> IsCommit { get; set; }
         public Nullable<bool> Ispaid { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BillCustomer> BillCustomers { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
-        public virtual Customer Customer2 { get; set; }
-        public virtual Product Product { get; set; }
     }
 }

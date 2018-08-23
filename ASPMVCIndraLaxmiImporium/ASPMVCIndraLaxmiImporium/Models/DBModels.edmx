@@ -50,7 +50,7 @@
             <PropertyRef Name="LedgerID" />
           </Key>
           <Property Name="LedgerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LedgerNumber" Type="int" Nullable="false" />
+          <Property Name="LedgerName" Type="nvarchar" MaxLength="50" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerID" Type="int" />
         </EntityType>
@@ -100,102 +100,6 @@
           <Property Name="Date" Type="date" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_BillCustomers_Bills">
-          <End Role="Bills" Type="Self.Bills" Multiplicity="0..1" />
-          <End Role="BillCustomers" Type="Self.BillCustomers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bills">
-              <PropertyRef Name="BillID" />
-            </Principal>
-            <Dependent Role="BillCustomers">
-              <PropertyRef Name="BillNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Customers">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="CredtorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Customers1">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="DebtorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Customers2">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="DebtorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ledgers_Customers">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
-          <End Role="Ledgers" Type="Self.Ledgers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Ledgers">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LedgerTransactions_Ledgers">
-          <End Role="Ledgers" Type="Self.Ledgers" Multiplicity="1" />
-          <End Role="LedgerTransactions" Type="Self.LedgerTransactions" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ledgers">
-              <PropertyRef Name="LedgerID" />
-            </Principal>
-            <Dependent Role="LedgerTransactions">
-              <PropertyRef Name="LedgerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TransactionDetails_TransactionMains1">
-          <End Role="TransactionMains" Type="Self.TransactionMains" Multiplicity="0..1" />
-          <End Role="TransactionDetails" Type="Self.TransactionDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TransactionMains">
-              <PropertyRef Name="TransactionMainID" />
-            </Principal>
-            <Dependent Role="TransactionDetails">
-              <PropertyRef Name="TransactionMainID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="IndraLaxmiImporiumModelStoreContainer">
           <EntitySet Name="BillCustomers" EntityType="Self.BillCustomers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
@@ -205,38 +109,6 @@
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionMains" EntityType="Self.TransactionMains" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BillCustomers_Bills" Association="Self.FK_BillCustomers_Bills">
-            <End Role="Bills" EntitySet="Bills" />
-            <End Role="BillCustomers" EntitySet="BillCustomers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Customers" Association="Self.FK_Bills_Customers">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Customers1" Association="Self.FK_Bills_Customers1">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Customers2" Association="Self.FK_Bills_Customers2">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Products" Association="Self.FK_Bills_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ledgers_Customers" Association="Self.FK_Ledgers_Customers">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Ledgers" EntitySet="Ledgers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LedgerTransactions_Ledgers" Association="Self.FK_LedgerTransactions_Ledgers">
-            <End Role="Ledgers" EntitySet="Ledgers" />
-            <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TransactionDetails_TransactionMains1" Association="Self.FK_TransactionDetails_TransactionMains1">
-            <End Role="TransactionMains" EntitySet="TransactionMains" />
-            <End Role="TransactionDetails" EntitySet="TransactionDetails" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -253,7 +125,6 @@
           <Property Name="TransportCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Total" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Bill" Relationship="Self.FK_BillCustomers_Bills" FromRole="BillCustomers" ToRole="Bills" />
         </EntityType>
         <EntityType Name="Bill">
           <Key>
@@ -273,11 +144,6 @@
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="IsCommit" Type="Boolean" />
           <Property Name="Ispaid" Type="Boolean" />
-          <NavigationProperty Name="BillCustomers" Relationship="Self.FK_BillCustomers_Bills" FromRole="Bills" ToRole="BillCustomers" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Bills_Customers" FromRole="Bills" ToRole="Customers" />
-          <NavigationProperty Name="Customer1" Relationship="Self.FK_Bills_Customers1" FromRole="Bills" ToRole="Customers" />
-          <NavigationProperty Name="Customer2" Relationship="Self.FK_Bills_Customers2" FromRole="Bills" ToRole="Customers" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Bills_Products" FromRole="Bills" ToRole="Products" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -287,21 +153,15 @@
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PreviousBalance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Bills" Relationship="Self.FK_Bills_Customers" FromRole="Customers" ToRole="Bills" />
-          <NavigationProperty Name="Bills1" Relationship="Self.FK_Bills_Customers1" FromRole="Customers" ToRole="Bills" />
-          <NavigationProperty Name="Bills2" Relationship="Self.FK_Bills_Customers2" FromRole="Customers" ToRole="Bills" />
-          <NavigationProperty Name="Ledgers" Relationship="Self.FK_Ledgers_Customers" FromRole="Customers" ToRole="Ledgers" />
         </EntityType>
         <EntityType Name="Ledger">
           <Key>
             <PropertyRef Name="LedgerID" />
           </Key>
           <Property Name="LedgerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LedgerNumber" Type="Int32" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerID" Type="Int32" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Ledgers_Customers" FromRole="Ledgers" ToRole="Customers" />
-          <NavigationProperty Name="LedgerTransactions" Relationship="Self.FK_LedgerTransactions_Ledgers" FromRole="Ledgers" ToRole="LedgerTransactions" />
+          <Property Name="LedgerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="LedgerTransaction">
           <Key>
@@ -314,7 +174,6 @@
           <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="PayLedger" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Ledger" Relationship="Self.FK_LedgerTransactions_Ledgers" FromRole="LedgerTransactions" ToRole="Ledgers" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -327,92 +186,7 @@
           <Property Name="Rate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ArtNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Mark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Bills" Relationship="Self.FK_Bills_Products" FromRole="Products" ToRole="Bills" />
         </EntityType>
-        <Association Name="FK_BillCustomers_Bills">
-          <End Role="Bills" Type="Self.Bill" Multiplicity="0..1" />
-          <End Role="BillCustomers" Type="Self.BillCustomer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bills">
-              <PropertyRef Name="BillID" />
-            </Principal>
-            <Dependent Role="BillCustomers">
-              <PropertyRef Name="BillNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Customers">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="CredtorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Customers1">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="DebtorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Customers2">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="DebtorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Bills_Products">
-          <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-          <End Role="Bills" Type="Self.Bill" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="Bills">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ledgers_Customers">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Ledgers" Type="Self.Ledger" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
-            </Principal>
-            <Dependent Role="Ledgers">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_LedgerTransactions_Ledgers">
-          <End Role="Ledgers" Type="Self.Ledger" Multiplicity="1" />
-          <End Role="LedgerTransactions" Type="Self.LedgerTransaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ledgers">
-              <PropertyRef Name="LedgerID" />
-            </Principal>
-            <Dependent Role="LedgerTransactions">
-              <PropertyRef Name="LedgerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="DBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BillCustomers" EntityType="Self.BillCustomer" />
           <EntitySet Name="Bills" EntityType="Self.Bill" />
@@ -420,40 +194,8 @@
           <EntitySet Name="Ledgers" EntityType="Self.Ledger" />
           <EntitySet Name="LedgerTransactions" EntityType="Self.LedgerTransaction" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <AssociationSet Name="FK_BillCustomers_Bills" Association="Self.FK_BillCustomers_Bills">
-            <End Role="Bills" EntitySet="Bills" />
-            <End Role="BillCustomers" EntitySet="BillCustomers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Customers" Association="Self.FK_Bills_Customers">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Customers1" Association="Self.FK_Bills_Customers1">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Customers2" Association="Self.FK_Bills_Customers2">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Bills_Products" Association="Self.FK_Bills_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="Bills" EntitySet="Bills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ledgers_Customers" Association="Self.FK_Ledgers_Customers">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="Ledgers" EntitySet="Ledgers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_LedgerTransactions_Ledgers" Association="Self.FK_LedgerTransactions_Ledgers">
-            <End Role="Ledgers" EntitySet="Ledgers" />
-            <End Role="LedgerTransactions" EntitySet="LedgerTransactions" />
-          </AssociationSet>
           <EntitySet Name="TransactionDetails" EntityType="IndraLaxmiImporiumModel.TransactionDetail" />
           <EntitySet Name="TransactionMains" EntityType="IndraLaxmiImporiumModel.TransactionMain" />
-          <AssociationSet Name="FK_TransactionDetails_TransactionMains1" Association="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1">
-            <End Role="TransactionMain" EntitySet="TransactionMains" />
-            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TransactionDetail">
           <Key>
@@ -466,7 +208,6 @@
           <Property Name="Debit" Type="Double" />
           <Property Name="Credit" Type="Double" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TransactionMain" Relationship="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1" FromRole="TransactionDetail" ToRole="TransactionMain" />
         </EntityType>
         <EntityType Name="TransactionMain">
           <Key>
@@ -477,20 +218,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TransactionDetails" Relationship="IndraLaxmiImporiumModel.FK_TransactionDetails_TransactionMains1" FromRole="TransactionMain" ToRole="TransactionDetail" />
         </EntityType>
-        <Association Name="FK_TransactionDetails_TransactionMains1">
-          <End Type="IndraLaxmiImporiumModel.TransactionMain" Role="TransactionMain" Multiplicity="0..1" />
-          <End Type="IndraLaxmiImporiumModel.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TransactionMain">
-              <PropertyRef Name="TransactionMainID" />
-            </Principal>
-            <Dependent Role="TransactionDetail">
-              <PropertyRef Name="TransactionMainID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -543,8 +271,8 @@
           <EntitySetMapping Name="Ledgers">
             <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.Ledger">
               <MappingFragment StoreEntitySet="Ledgers">
+                <ScalarProperty Name="LedgerName" ColumnName="LedgerName" />
                 <ScalarProperty Name="LedgerID" ColumnName="LedgerID" />
-                <ScalarProperty Name="LedgerNumber" ColumnName="LedgerNumber" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
               </MappingFragment>

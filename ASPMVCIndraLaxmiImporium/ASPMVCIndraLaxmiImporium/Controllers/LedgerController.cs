@@ -121,5 +121,12 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public static string GetLedgerNumber( int id)
+        {
+            Ledger db = new DBModel().Ledgers.Where(x => x.CustomerID == id).FirstOrDefault<Ledger>();
+           
+            return db.LedgerID.ToString();
+        }
     }
 }

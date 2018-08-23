@@ -63,9 +63,10 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     }
 
                 }
-                return Json(new { success = true, message = "Data Added Successfully" }, JsonRequestBehavior.AllowGet);
-            //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllBill()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
-        }
+                return RedirectToAction("Index");
+                //return Json(new { success = true, message = "Data Added Successfully" }, JsonRequestBehavior.AllowGet);
+                //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllBill()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+            }
             catch (Exception ex)
             {
 

@@ -6,7 +6,7 @@
 }
 
 
-<table class="table table-bordered table-condensed table-striped table-responsive" id="dataTable">
+<table class="table table-bordered table-condensed table-striped table-responsive table-hover" id="dataTable">
     <thead>
         <tr>
             <th>
@@ -27,7 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Total)
             </th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     @Html.AntiForgeryToken()
@@ -54,7 +54,7 @@
                     @Html.DisplayFor(modelItem => item.Total)
                 </td>
                 <td>
-                    <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "BillCustomer", new { id=@item.BillCustomerID })')"> <i class="fa fa-edit"></i> Edit</a>
+                    @*<a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "BillCustomer", new { id=@item.BillCustomerID })')"> <i class="fa fa-edit"></i> Edit</a>*@
                     <a class="btn btn-danger" onclick="Delete('@Url.Action("Delete", "BillCustomer", new { id=@item.BillCustomerID })')"><i class="fa fa-trash"></i> Delete</a>
                 </td>
             </tr>

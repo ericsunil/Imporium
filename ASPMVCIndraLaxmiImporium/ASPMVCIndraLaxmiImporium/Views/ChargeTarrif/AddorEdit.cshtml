@@ -3,6 +3,7 @@
 @{
 	ViewBag.Title = "AddorEdit";
 	Layout = null;
+
 }
 <style>
 	.maxl {
@@ -97,7 +98,7 @@
 		<div class="form-group">
 			@Html.Label("Creditor Name", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.DropDownListFor(model => model.UserName, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", required = "required" })
+				@Html.DropDownList("CustomerID", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", required = "required" })
 
 
 				@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
@@ -116,8 +117,7 @@
 				<span>Transport </span>
 			</label>
 			<div class="col-md-3" id="TransportData">
-				@Html.DropDownListFor(model => model.Description, Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control" })
-				@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+				@Html.DropDownList("PaidByID", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control" })
 
 			</div>
 		</div>
@@ -129,7 +129,7 @@
 					@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Description" } })
 					@Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 				</div>
-			</div>
+		</div>
 
 		<div class="form-group">
 			@Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -142,8 +142,8 @@
 		<div class="form-group">
 			@Html.Label("Amount", htmlAttributes: new { @class = "control-label col-md-2" })
 			<div class="col-md-10">
-				@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Amount" } })
-				@Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+				@Html.Editor("Amount", new { htmlAttributes = new { @class = "form-control", placeholder = "Amount" } })
+				
 			</div>
 		</div>
 
@@ -154,28 +154,27 @@
 		</div>
 	</div>
 }
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script>
 	$(function(){
-		GetDropDown('Creditor', '/BillCustomer/GetCustomer/', 'UserName')
+		GetDropDown('Creditor', '/BillCustomer/GetCustomer/', 'CustomerID')
 
-		GetDropDown('Transport', '/BillCustomer/GetCustomer/', 'Description')
+		GetDropDown('Transport', '/BillCustomer/GetCustomer/', 'PaidByID')
 
 	});
 
 	//self and transport radio button with hidden transport type
-	$(document).ready(function(){
+	$(document).ready(function () {
 		$('#TransportData').hide();
-		$("#Transport") // select the radio by its id
-		.change(function(){ // bind a function to the change event
+		$("#Transport").change(function(){ // bind a function to the change event
 			if( $(this).is(":checked") ){ // check if the radio is checked
 		$('#TransportData').show();
 				//var val = $(this).val(); // retrieve the value
 			}
 		});
 
-		$("#Self") // select the radio by its id
-			.change(function(){ // bind a function to the change event
+		$("#Self").change(function(){ // bind a function to the change event
 				if( $(this).is(":checked") ){ // check if the radio is checked
 			$('#TransportData').hide();
 					//var val = $(this).val(); // retrieve the value
@@ -185,13 +184,13 @@
 	
 
 		//data save
-		$('#Save').click(function(e) {
+	//	$('#Save').click(function(e) {
 
-	var a=SaveTransactionMain($('#BillNumber').val(),$('#Description').val(),$('#Date').val(),$('#UserName').val());
-		//TransactionMainID, LedgerNumber, Description, Debit, Credit, CustomerID
-			SaveTransactionDetail($(a, $('#Description').val(),$('#Date').val(),$('#UserName').val());
+	//var a=SaveTransactionMain($('#BillNumber').val(),$('#Description').val(),$('#Date').val(),$('#UserName').val());
+	//	TransactionMainID, LedgerNumber, Description, Debit, Credit, CustomerID
+	//		SaveTransactionDetail($(a, $('#Description').val(),$('#Date').val(),$('#UserName').val());
 		
-		});
+	//	});
 	});
 
 

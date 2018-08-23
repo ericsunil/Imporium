@@ -42,6 +42,40 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             }
             return View(emp);
         }
+
+
+        public static void BackendPostLedgerTransaction(LedgerTransaction emp)
+        {
+            try
+            {
+                using (DBModel db = new DBModel())
+                {
+                    if (emp.LedgerTransactionID == 0)
+                    {
+                        db.LedgerTransactions.Add(emp);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        db.Entry(emp).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
+                }
+                
+            }
+            catch (Exception ex)
+            {
+
+                
+            }
+        }
+
+        public static decimal BackendPostBalange(int LedgerID)
+        {
+            return (decimal)new DBModel().LedgerTransactions.Where(x => x.LedgerTransactionID == new DBModel().LedgerTransactions.Where(z => z.LedgerID == LedgerID).Max(y => y.LedgerTransactionID)).FirstOrDefault<LedgerTransaction>().Balance;
+        }
+
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult AddorEdit(LedgerTransaction emp)

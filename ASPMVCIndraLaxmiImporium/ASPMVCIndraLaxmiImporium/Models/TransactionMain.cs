@@ -11,27 +11,13 @@ namespace ASPMVCIndraLaxmiImporium.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TransactionMain
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TransactionMain()
-        {
-            this.TransactionDetails = new HashSet<TransactionDetail>();
-        }
-    
         public int TransactionMainID { get; set; }
-        [DisplayName("Bill Number")]
-        [Required(ErrorMessage = "This field is required.")]
         public Nullable<int> BillNumber { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        [DisplayName("User Name")]
         public string UserName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionDetail> TransactionDetails { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
         }
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult AddorEdit(TransactionMain emp)
+        public ActionResult AddorEdit(TransactionMain emp, int CustomerID, double Amount )
         {
             try
             {
@@ -53,6 +53,9 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     {
                         db.TransactionMains.Add(emp);
                         db.SaveChanges();
+                        TransactionDetailController.BackendPost(new TransactionDetail() { TransactionDetailID = 0, TransactionMainID = emp.TransactionMainID, LedgerNumber ="1", Description = emp.Description, CustomerID = CustomerID, Credit = 0, Debit=Amount });
+                        LedgerTransactionController.BackendPostLedgerTransaction(new LedgerTransaction() { LedgerTransactionID = 0, LedgerID =Convert.ToInt32( LedgerController.GetLedgerNumber(CustomerID)), Debit= 0, Credit= Convert.ToDecimal(Amount), });
+                        
                     }
                     else
                     {
@@ -61,7 +64,8 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     }
 
                 }
-                return Json(new { success = true, message = "Data Added Successfully" }, JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Index");
+                //return Json(new { success = true, message = "Data Added Successfully" }, JsonRequestBehavior.AllowGet);
                 //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllChargeTarrif()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

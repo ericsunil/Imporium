@@ -13,6 +13,15 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
         // GET: BillCustomer
         public ActionResult Index()
         {
+           
+                DBModel db = new DBModel();
+                Bill emp = db.Bills.Where(b => b.IsCommit == false).FirstOrDefault<Bill>();
+            if (emp !=null)
+            {
+                db.Bills.Remove(emp);
+                db.SaveChanges();
+            }
+           
             return View();
         }
         public ActionResult ViewAll()
@@ -53,6 +62,14 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     {
                         db.BillCustomers.Add(emp);
                         db.SaveChanges();
+                        DBModel isCommet = new DBModel();
+                        Bill a= isCommet.Bills.SingleOrDefault(b=>b.BillNumber == emp.BillNumber);
+                        if(a!= null)
+                        {
+                            a.IsCommit = true;
+                            isCommet.SaveChanges();
+                        }
+
                     }
                     else
                     {
@@ -61,7 +78,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     }
 
                 }
-                return RedirectToAction("ViewAll");
+                return RedirectToAction("Index");
                 //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllBillCustomer()), message = "Save Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -78,7 +95,10 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                 using (DBModel db = new DBModel())
                 {
                     BillCustomer emp = db.BillCustomers.Where(x => x.BillCustomerID == id).FirstOrDefault<BillCustomer>();
+                    Bill emp1 = db.Bills.Where(x => x.BillNumber == emp.BillNumber).FirstOrDefault<Bill>();
                     db.BillCustomers.Remove(emp);
+                    
+                    db.Bills.Remove(emp1);
                     db.SaveChanges();
 
                 }

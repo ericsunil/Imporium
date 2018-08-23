@@ -166,6 +166,7 @@
     <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\LedgerTransactionController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\TarrifChargeController.cs" />
     <Compile Include="Controllers\TransactionDetailController.cs" />
     <Compile Include="Controllers\TransactionMainController.cs" />
     <Compile Include="Global.asax.cs">
@@ -7513,6 +7514,8 @@
     <Content Include="Views\TransactionDetail\Index.cshtml" />
     <Content Include="Views\TransactionDetail\ViewAll.cshtml" />
     <Content Include="Views\TransactionDetail\AddorEdit.cshtml" />
+    <Content Include="Views\TarrifCharge\Index.cshtml" />
+    <Content Include="Views\TarrifCharge\AddorEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

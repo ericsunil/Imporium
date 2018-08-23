@@ -42,6 +42,37 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             }
             return View(emp);
         }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public static void BackendPost(TransactionDetail emp)
+        {
+            try
+            {
+                using (DBModel db = new DBModel())
+                {
+                    if (emp.TransactionDetailID == 0)
+                    {
+                        db.TransactionDetails.Add(emp);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        db.Entry(emp).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
+                }
+                //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllLedger()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+
+                //return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult AddorEdit(TransactionDetail emp)
