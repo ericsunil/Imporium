@@ -231,21 +231,28 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/"><i class="fa fa-circle-o"></i>Home</a></li>
+                            <li><a href="@Url.Action("Index","Home")"><i class="fa fa-circle-o"></i>Home</a></li>
                         </ul>
                     </li>
 
+                    @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active nav-item" : "nav-item")">
+            @Html.ActionLink("Customer", "Index", "Customer", new { area = "" }, new { @class = "nav-link" })
+        </li>*@
+                    @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active nav-item" : "nav-item")">
+            @Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })
+        </li>*@
 
 
 
 
 
                     @*@Html.ActionLink("Home", "Index", "Home")*@
-                    <li><a href="Customer"><i class="fa fa-user-plus"></i> <span>Customer</span></a></li>
-                    <li><a href="Product"><i class="fa fa-ship"></i> <span>Product</span></a></li>
+                    <li><a href="@Url.Action("Index","Customer")"><i class="fa fa-user-plus"></i> <span>Customer</span></a></li>
+                    <li><a href="@Url.Action("Index", "Product")"><i class="fa fa-ship"></i> <span>Product</span></a></li>
                     @*<li><a href="Bill"><i class="fa fa-list-alt"></i> <span>Bill</span></a></li>*@
-                    <li><a href="BillCustomer"><i class="fa fa-money"></i> <span>Bill Customer</span></a></li>
-                    <li><a href="TarrifCharge"><i class="fa fa-book"></i> <span>Tarrif Charge</span></a></li>
+                    <li><a href="@Url.Action("Index", "BillCustomer")"><i class="fa fa-money"></i> <span>Bill Customer</span></a></li>
+                    <li><a href="@Url.Action("Index", "TarrifCharge")"><i class="fa fa-book"></i> <span>Tarrif Charge</span></a></li>
+                    <li><a href="@Url.Action("Index", "OrderRequest")"><i class="fa fa-shopping-cart"></i> <span>Order Request</span></a></li>
                     @*<li><a href="Ledger"><i class="fa fa-book"></i> <span>Ledger</span></a></li>
         <li><a href="LedgerTransaction"><i class="fa fa-book"></i> <span>Ledger Transaction</span></a></li>*@
                     @*<li><a href="ChargeTarrif"><i class="fa fa-book"></i> <span>Charge Tarrif</span></a></li>*@

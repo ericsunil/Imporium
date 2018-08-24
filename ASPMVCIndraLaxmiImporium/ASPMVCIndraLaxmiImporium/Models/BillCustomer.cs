@@ -11,15 +11,20 @@ namespace ASPMVCIndraLaxmiImporium.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class BillCustomer
     {
         public int BillCustomerID { get; set; }
+        [DisplayName("Debtor Name")]
         public Nullable<int> CustomerCode { get; set; }
+        [DisplayName("Bill Number")]
         public Nullable<int> BillNumber { get; set; }
         public string CBM { get; set; }
+        [DisplayName("Transport Name")]
         public string TransportCode { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        [DisplayName("Total Amount")]
         public string Total { get; set; }
     }
 }

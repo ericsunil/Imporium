@@ -165,6 +165,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LedgerController.cs" />
     <Compile Include="Controllers\LedgerTransactionController.cs" />
+    <Compile Include="Controllers\OrderRequestController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\TarrifChargeController.cs" />
     <Compile Include="Controllers\TransactionDetailController.cs" />
@@ -7459,6 +7460,7 @@
     <Content Include="Models\DBModels.edmx.diagram">
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -7516,6 +7518,8 @@
     <Content Include="Views\TransactionDetail\AddorEdit.cshtml" />
     <Content Include="Views\TarrifCharge\Index.cshtml" />
     <Content Include="Views\TarrifCharge\AddorEdit.cshtml" />
+    <Content Include="Views\OrderRequest\Index.cshtml" />
+    <Content Include="Views\OrderRequest\AddorEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
