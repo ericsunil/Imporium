@@ -18,5 +18,6 @@ namespace ASPMVCIndraLaxmiImporium.Models
         public string CustomerName { get; set; }
         public string Type { get; set; }
         public string PreviousBalance { get; set; }
+        public string Mark { get; set; }
     }
 }

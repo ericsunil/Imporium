@@ -200,6 +200,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extended\Bill.cs" />
+    <Compile Include="Models\Extended\BillCustomer.cs" />
+    <Compile Include="Models\Extended\Customer.cs" />
+    <Compile Include="Models\Extended\Ledger.cs" />
+    <Compile Include="Models\Extended\LedgerTransaction.cs" />
+    <Compile Include="Models\Extended\Product.cs" />
+    <Compile Include="Models\Extended\TransactionDetail.cs" />
+    <Compile Include="Models\Extended\TransactionMain.cs" />
     <Compile Include="Models\Ledger.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
@@ -7460,6 +7468,7 @@
     <Content Include="Models\DBModels.edmx.diagram">
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

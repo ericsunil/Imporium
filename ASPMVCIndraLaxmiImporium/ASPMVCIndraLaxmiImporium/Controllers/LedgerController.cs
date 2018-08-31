@@ -66,6 +66,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                     }
 
                 }
+
                 //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllLedger()), message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -44,6 +44,7 @@
           <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" />
           <Property Name="PreviousBalance" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mark" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Ledgers">
           <Key>
@@ -153,6 +154,7 @@
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PreviousBalance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Ledger">
           <Key>
@@ -261,6 +263,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
