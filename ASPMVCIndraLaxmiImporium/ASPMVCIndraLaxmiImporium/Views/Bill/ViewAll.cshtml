@@ -39,7 +39,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.TotalAmount)
             </th>
-            <th>Action</th>
+            @*<th>Action</th>*@
         </tr>
     </thead>
 
@@ -78,10 +78,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.TotalAmount)
                 </td>
-                <td>
+                @*<td>
                     <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "Bill", new { id=@item.BillID })')"> <i class="fa fa-edit"></i> Edit</a>
                     <a class="btn btn-danger" id="BillDetailDelete" onclick="Delete('@Url.Action("Delete", "Bill", new { id=@item.BillID })')"><i class="fa fa-trash"></i> Delete</a>
-                </td>
+                </td>*@
             </tr>
         }
     </tbody>

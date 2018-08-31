@@ -25,7 +25,7 @@ namespace ASPMVCIndraLaxmiImporium.Models
         [DisplayName("Transport Name")]
         public string TransportCode { get; set; }
 
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "0: MM/dd/yyyy")]
         public Nullable<System.DateTime> Date { get; set; }
 

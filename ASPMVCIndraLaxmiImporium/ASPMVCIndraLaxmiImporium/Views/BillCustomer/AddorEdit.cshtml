@@ -146,7 +146,7 @@
 
         });
     });
-
+    
     $('#Order').keypress(function(e) {
         if(e.which == 13) {
      
@@ -182,6 +182,10 @@
                         success: function (data) {
 
                             $("#BillDetail").html(data).show();
+    //for making empty edit field after enter
+    $('#ProductCode').val('first').change();
+    $("#Order").val('');
+    $('#Detail').fadeOut();
                             var total = 0;
                             $("#BillDetail tbody tr").each(function () {
                                total+= parseFloat($(this).find('td:eq(5)').text());

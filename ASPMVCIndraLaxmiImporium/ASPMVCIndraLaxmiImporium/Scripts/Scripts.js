@@ -106,7 +106,6 @@ function Delete(url) {
 
 function GetDropDown(_Id, url, target) {
  //   alert(_Id.value + url+ target);
-//Subash Pasachhe
 
     $.ajax({
         type: "get",
@@ -127,7 +126,6 @@ function GetDropDown(_Id, url, target) {
 
 function GetDropDownFor(_Id, url, target) {
     //   alert(_Id.value + url+ target);
-    //Subash Pasachhe
 
     $.ajax({
         type: "get",

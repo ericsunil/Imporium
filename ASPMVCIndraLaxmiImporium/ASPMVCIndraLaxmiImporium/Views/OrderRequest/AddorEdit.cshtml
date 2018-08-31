@@ -38,141 +38,110 @@
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-horizontal">
+            <div class="form-horizontal">
 
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.BillCustomerID)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.BillCustomerID)
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <fieldset>
-                                <legend>Bill Dispatch</legend>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            <div class="col-md-10">
-                                                @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                                @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            <div class="col-md-10">
-                                                @Html.EditorFor((model => model.Date), new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-                                            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <fieldset>
+                            <legend>Bill Dispatch</legend>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.BillNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.BillNumber, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.BillNumber, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.CustomerCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            <div class="col-md-10">
-                                                @Html.EditorFor(model => model.CustomerCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                                @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.TransportCode, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            <div class="col-md-10">
-                                                @Html.EditorFor(model => model.TransportCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
-                                                @Html.ValidationMessageFor(model => model.TransportCode, "", new { @class = "text-danger" })
-                                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor((model => model.Date), new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.LabelFor(model => model.CBM, htmlAttributes: new { @class = "control-label col-md-2" })
-                                            <div class="col-md-10">
-                                                @Html.EditorFor(model => model.CBM, new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(model => model.CBM, "", new { @class = "text-danger" })
-                                            </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.CustomerCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="clearfix"></div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            @Html.Label("Customer Name", htmlAttributes: new { @class = "control-label col-md-2" })
-                                            <div class="col-md-10">
-                                                @Html.Editor("CustomerName", new { htmlAttributes = new { @class = "form-control" } })
-                                                @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
-                                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TransportCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.TransportCode, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.TransportCode, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-                                    <div class="clearfix"></div>
                                 </div>
-
-
-
-
-
-
-
-
-
-
-
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CBM, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.CBM, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CBM, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
+                            </div>
 
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Save" class="btn btn-success" />
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.Label("Customer Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("CustomerName", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="clearfix"></div>
+                            </div>
 
-                            </fieldset>
-                        </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
 
+
+
+                        </fieldset>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table table-bordered table-condensed table-hover table-striped" id="dataTable">
-                                <thead>
-                                    <tr>
-                                        <th width="5%">S.N.</th>
-                                        <th width="10%">Mark</th>
-                                        <th width="5%">Ctn no.</th>
-                                        <th width="5%">Art no.</th>
-                                        <th width="25%">Particulars</th>
-                                        <th width="5%">Size</th>
-                                        <th width="5%">Ctn</th>
-                                        <th width="5%">Prs</th>
-                                        <th width="5%">T.Prs</th>
-                                        <th width="5%">Rate</th>
-                                        <th width="15%">Amount</th>
-                                        <th width="5%">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
 
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="dataTable"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" id="DispatchSave" class="btn btn-success" style="float: right; margin-right: 50px;" />
+                    </div>
+                </div>
+
+
+            </div>
             }
 
         </div>
@@ -185,15 +154,31 @@
     <!-- /.box -->
 </section>
 <!-- /.content -->
+@*<script>
+            function activatejQueryTable() {
+                $('#dataTable').DataTable();
 
-
+            }
+            $(function () {
+                activatejQueryTable();
+            });
+    </script>*@
 
 <script>
-        function activatejQueryTable() {
-            $('#dataTable').DataTable();
+    $(function () {
+        GetDropDown('Creditor', '/BillCustomer/GetCustomer/', 'CustomerName')
 
-        }
-        $(function () {
-            activatejQueryTable();
+    });
+    $(document).ready(function(){
+        $.ajax({
+            type: "get",
+            url: '/Bill/ViewAll',
+            data: { id: $("#BillNumber").val() },
+            success: function (data) {
+                $("#dataTable").html(data).show();
+                
+            }
         });
+    });
+
 </script>
