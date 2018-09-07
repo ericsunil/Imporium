@@ -4,6 +4,15 @@
     ViewBag.Title = "Dispatch";
 }
 
+<style>
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        /*-appearance: none;*/
+        margin: 0;
+    }
+</style>
 <section class="content-header">
     <h1>
         Dispatch
@@ -34,7 +43,7 @@
 
 
         <div class="box-body">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("SaveCustomerDetail", "OrderRequest", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_resetUrl = Url.Action("SaveCustomerDetail", "OrderRequest", new { id = 0 }) })) //data-resetUrl
             {
                 @Html.AntiForgeryToken()
 
@@ -108,20 +117,14 @@
                                         @Html.Label("Customer Name", htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-10">
                                             @Html.DropDownList("CustomerName", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })
+                                            @*@Html.ValidationMessageFor(model => model.CustomerCode, "", new { @class = "text-danger" })*@
                                         </div>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
 
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
-                                <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+
 
 
 
@@ -134,6 +137,15 @@
                         <div id="dataTable"></div>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" id="DispatchSave" class="btn btn-success" style="float: right; margin-right: 50px;" />
@@ -154,21 +166,14 @@
     <!-- /.box -->
 </section>
 <!-- /.content -->
-@*<script>
-            function activatejQueryTable() {
-                $('#dataTable').DataTable();
-
-            }
-            $(function () {
-                activatejQueryTable();
-            });
-    </script>*@
 
 <script>
     $(function () {
         GetDropDown('Creditor', '/BillCustomer/GetCustomer/', 'CustomerName')
 
     });
+
+    //For data displaying in table
     $(document).ready(function(){
         $.ajax({
             type: "get",
@@ -180,5 +185,59 @@
             }
         });
     });
+
+    //For table data change save
+ $('#dataTable').on('keypress','.item_Pair', function (e) {
+   
+        if (e.which == 13) {
+            var model = {
+                BillID: parseInt($('#item_BillID').val()),
+                BillNumber: parseInt($('#BillNumber').val()),
+                SN: null,
+                DebtorID: parseInt($('#CustomerCode').val()),
+                TransportID: parseInt($('#TransportCode').val()),
+                CredtorID: parseInt($('#CustomerName').val()),
+                ProductID: parseInt($('.item_ProductID').html()),
+                Orderded: parseInt($('.item_Orderded').html()),
+                Pair: parseInt($('.item_Pair').val()),
+                TotalPair: parseInt($('.item_Orderded').html() * $('.item_Pair').val()),
+                Rate: parseFloat($('.item_Rate').html()),
+                TotalAmount: parseFloat($('.item_Orderded').html() * $('.item_Pair').val() * $('.item_Rate').html()),
+                IsCommit: true,
+                Ispaid: false,
+                __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+            };
+            console.log(model)
+            
+            var ajaxConfig = {
+                type: 'POST',
+                url: '/OrderRequest/AddorEdit',
+                data: model, success: function (response) {
+                    alert("Record successfully updated");
+
+                    $.ajax({
+                        type: "get",
+                        url: '/Bill/ViewAll',
+                        data: { id: $("#BillNumber").val() },
+                        success: function (data) {
+                            $("#dataTable").html(data).show();
+
+
+                            var total = 0;
+                            $("#datatable tbody tr").each(function () {
+                                total += parseFloat($(this).find('td:eq(5)').text());
+                            });
+                            //console.log(total);
+                            $("#Total").val(total);
+                        }
+
+                    });
+                }
+            }
+            $.ajax(ajaxConfig);
+    e.preventDefault();
+        }
+    });
+
 
 </script>
