@@ -63,11 +63,15 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                         db.BillCustomers.Add(emp);
                         db.SaveChanges();
                         DBModel isCommet = new DBModel();
-                        Bill a= isCommet.Bills.SingleOrDefault(b=>b.BillNumber == emp.BillNumber);
-                        if(a!= null)
+                      List< Bill> a= isCommet.Bills.Where(b=>b.BillNumber == emp.BillNumber).ToList<Bill>();
+                       foreach(Bill bill in a)
                         {
-                            a.IsCommit = true;
-                            isCommet.SaveChanges();
+                            using (DBModel commit = new DBModel())
+                            {
+                                bill.IsCommit = true;
+                                commit.Entry(bill).State = EntityState.Modified;
+                                commit.SaveChanges();
+                              }
                         }
 
                     }

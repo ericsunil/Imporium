@@ -85,11 +85,11 @@
             <td id="item_Rate">
                 @Html.DisplayFor(modelItem => item.Rate, new { @class = "item_Rate" })
             </td>
-            <td id="item_TotalAmount">
+            <td id="item_TotalAmount" class="item_TotalAmount">
                 @Html.DisplayFor(modelItem => item.TotalAmount, new { @class = "item_TotalAmount" })
             </td>
             <td class="hidden-md hidden-sm hidden-xs hidden-lg">
-                @Html.HiddenFor(modelItem => item.BillID)
+                @Html.DisplayFor(modelItem => item.BillID)
             </td>
             @*<td>
             <a class="btn btn-success" onclick="Edit('@Url.Action("AddorEdit", "Bill", new { id=@item.BillID })')"> <i class="fa fa-edit"></i> Edit</a>

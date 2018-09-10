@@ -51,24 +51,6 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
                         db.Entry(emp).State = EntityState.Modified;
                         db.SaveChanges();
                     }
-                    //if (emp.BillCustomerID == 0)
-                    //{
-                    //    db.BillCustomers.Add(emp);
-                    //    db.SaveChanges();
-                    //    DBModel isCommet = new DBModel();
-                    //    Bill a = isCommet.Bills.SingleOrDefault(b => b.BillNumber == emp.BillNumber);
-                    //    if (a != null)
-                    //    {
-                    //        a.IsCommit = true;
-                    //        isCommet.SaveChanges();
-                    //    }
-
-                    //}
-                    //else
-                    //{
-                    //    db.Entry(emp).State = EntityState.Modified;
-                    //    db.SaveChanges();
-                    //}
 
                 }
                 return RedirectToAction("AddorEdit");
@@ -100,6 +82,12 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             DBModel db3 = new DBModel();
             db3.Entry(cust).State = EntityState.Modified;
             db3.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult GetCreditAmount( Bill cdt)
+        {
 
             return RedirectToAction("Index");
         }
