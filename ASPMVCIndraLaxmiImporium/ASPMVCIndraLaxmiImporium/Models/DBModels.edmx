@@ -16,6 +16,7 @@
           <Property Name="TransportCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Date" Type="date" />
           <Property Name="Total" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ispaid" Type="bit" />
         </EntityType>
         <EntityType Name="Bills">
           <Key>
@@ -126,6 +127,7 @@
           <Property Name="TransportCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Total" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ispaid" Type="Boolean" />
         </EntityType>
         <EntityType Name="Bill">
           <Key>
@@ -230,6 +232,7 @@
           <EntitySetMapping Name="BillCustomers">
             <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.BillCustomer">
               <MappingFragment StoreEntitySet="BillCustomers">
+                <ScalarProperty Name="Ispaid" ColumnName="Ispaid" />
                 <ScalarProperty Name="BillCustomerID" ColumnName="BillCustomerID" />
                 <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
                 <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />

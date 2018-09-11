@@ -134,7 +134,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Bill Payable", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
@@ -142,9 +142,17 @@
                 </div>
 
                 <div class="form-group" id="row_dim">
-                    @Html.Label("Credit Amount", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.Label("Due", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.Editor("CreditAmount", new { htmlAttributes = new { @class = "form-control", @Value="" } })
+                        @Html.Editor("CreditAmount", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" id="totalAmount">
+                    @Html.LabelFor(model=>model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.Editor("TotalAmount", new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -154,6 +162,8 @@
                         <input type="submit" value="Save" id="DispatchSave" class="btn btn-success" style="float: right; margin-right: 50px;" />
                     </div>
                 </div>
+
+                
 
 
             </div>
@@ -168,7 +178,7 @@
 
 <script>
     $(function () {
-        GetDropDown('Creditor', '/BillCustomer/GetCustomer/', 'CustomerName')
+        GetDropDown('Creditor', '/OrderRequest/GetCustomer/', 'CustomerName')
 
     });
 
@@ -181,40 +191,43 @@
             success: function (data) {
                 $("#dataTable").html(data).show();
                 
+                
             }
         });
     });
 
     //on selecting customer Name
     $(document).ready(function() {
-    $('#row_dim').hide();
-        $ajax({
-            type: "get",
-            url: '/',
-            data: {  },
-            success: function (data) {
-                
-            }
+        $('#row_dim').hide();
+        $('#totalAmount').hide();
+        
+        $('#CustomerName').change(function () {
+            $.ajax({
+                type: "GET",
+                url: '/OrderRequest/GetCreditAmount',
+                data: { id: $(this).val() },
+                success: function (data) {
+
+                    $('#row_dim').show();
+                    $("#CreditAmount").val(data);
+                    $("#TotalAmount").val(data + parseInt($("#Total").val()));
+                    $('#totalAmount').show();
+                }
+            });
+            //if($('#CustomerName').val() == '') {
+            //    $('#row_dim').show(); 
+            //} else {
+            //    $('#row_dim').hide(); 
+            //} 
+
+        
+            //if($('#CustomerName').val() == 'parcel') {
+            //    $('#row_dim').show(); 
+            //} else {
+            //    $('#row_dim').hide(); 
+           // } 
         });
-
-
-
-     
-    $('.CustomerName').change(function(){
-        if($('#CustomerName').val() == '') {
-            $('#row_dim').show(); 
-        } else {
-            $('#row_dim').hide(); 
-        } 
-
-        $('#row_dim').show();
-        //if($('#CustomerName').val() == 'parcel') {
-        //    $('#row_dim').show(); 
-        //} else {
-        //    $('#row_dim').hide(); 
-       // } 
     });
-});
 
     //For table data change save
  $('#dataTable').on('keypress','.item_Pair', function (e) {

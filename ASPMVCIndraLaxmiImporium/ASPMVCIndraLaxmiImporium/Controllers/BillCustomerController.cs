@@ -56,6 +56,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
         {
             try
             {
+                emp.Ispaid = false;
                 using (DBModel db = new DBModel())
                 {
                     if (emp.BillCustomerID == 0)

@@ -20,7 +20,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
         {
             using (DBModel db = new DBModel())
             {
-                return db.BillCustomers.ToList<BillCustomer>();
+                return db.BillCustomers.Where(b=>b.Ispaid != true).ToList<BillCustomer>();
             }
         }
 
@@ -65,7 +65,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult SaveCustomerDetail(BillCustomer cust)
+        public ActionResult SaveCustomerDetail(BillCustomer cust, int TotalAmount)
         {
             TransactionMain main = new TransactionMain() { TransactionMainID = 0, BillNumber = cust.BillNumber, Description = "Goods dispatch to " + cust.CustomerCode, Date = cust.Date, UserName = "Admin" };
 
@@ -80,18 +80,72 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             db2.SaveChanges();
 
             DBModel db3 = new DBModel();
+         
             db3.Entry(cust).State = EntityState.Modified;
             db3.SaveChanges();
 
+            DBModel db5 = new DBModel();
+            BillCustomer b = db5.BillCustomers.SingleOrDefault(be => be.BillNumber == cust.BillNumber);
+            b.Ispaid = true;
+            db5.Entry(b).State = EntityState.Modified;
+            db5.SaveChanges();
+
+            DBModel db4 = new DBModel();
+
+            db4.TransactionDetails.Add(new TransactionDetail() { TransactionDetailID = 0, TransactionMainID = main.TransactionMainID, LedgerNumber = LedgerController.GetLedgerNumber((int)cust.CustomerCode), Description = "Paid for Goods " + cust.BillNumber, Debit = TotalAmount, Credit = 0, CustomerID = (int)cust.CustomerCode });
+            db4.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetCreditAmount( Bill cdt)
+        public ActionResult GetCreditAmount( int id)
         {
-
-            return RedirectToAction("Index");
+            using (DBModel db = new DBModel())
+            {
+                List<TransactionDetail> crd = db.TransactionDetails.Where(x => x.LedgerNumber == id.ToString()).ToList<TransactionDetail>();
+                int credit=  Convert.ToInt32(crd.Sum(d => d.Credit)); 
+                int debit = Convert.ToInt32(crd.Sum(d=>d.Debit));
+               
+                return Json(credit - debit, JsonRequestBehavior.AllowGet);
+            }           
         }
 
+        public ActionResult GetCustomer(String id = "")
+        {
+            String[] type = { "Debtor", "Creditor", "Transport" };
+            String CustomerType = id;
 
+            DBModel db = new DBModel();
+            //var balance = (from aa in db.Customers
+            //               join c in db.Ledgers on aa.CustomerID equals c.CustomerID into lg
+            //               from x in lg.DefaultIfEmpty()
+            //               select new
+            //               {
+            //                   aa.CustomerName,
+            //                   aa.Type,
+            //                   x.LedgerID,
+            //                   x.LedgerName
+            //               }).ToList();
+
+            var data = (from c in db.Customers
+                                      join l in db.Ledgers on c.CustomerID equals l.CustomerID
+                                      where l.Type == id
+                                      select new CustomerLedger
+                                      {
+                                          CustomerName = c,
+                                          LedgerName = l
+                                      });
+
+            IEnumerable<CustomerLedger> a = data;
+
+
+            List<CustomerLedger> objcity = new List<CustomerLedger>();
+
+            SelectList obgcity = new SelectList(a, "LedgerName.LedgerID", "CustomerName.CustomerName", 0);
+
+            return Json(obgcity, JsonRequestBehavior.AllowGet);
+            //return Content(a);
+
+        }
     }
 }

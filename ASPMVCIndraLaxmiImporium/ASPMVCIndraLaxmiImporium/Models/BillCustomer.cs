@@ -21,5 +21,6 @@ namespace ASPMVCIndraLaxmiImporium.Models
         public string TransportCode { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Total { get; set; }
+        public Nullable<bool> Ispaid { get; set; }
     }
 }
