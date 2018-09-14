@@ -12,11 +12,13 @@ namespace ASPMVCIndraLaxmiImporium.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Ledger
+    public partial class ReportCustomerLedger
     {
-        public int LedgerID { get; set; }
-        public string LedgerName { get; set; }
-        public string Type { get; set; }
-        public Nullable<int> CustomerID { get; set; }
+        public string LedgerNumber { get; set; }
+        public int TransactionDetailID { get; set; }
+        public string Description { get; set; }
+        public Nullable<double> Debit { get; set; }
+        public Nullable<double> Credit { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     }
 }

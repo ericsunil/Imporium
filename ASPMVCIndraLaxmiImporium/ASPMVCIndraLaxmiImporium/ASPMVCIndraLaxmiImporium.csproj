@@ -219,6 +219,9 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportCustomerLedger.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TransactionDetail.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
@@ -6847,8 +6850,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\DBModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DBModels.Context.cs</LastGenOutput>
       <DependentUpon>DBModels.edmx</DependentUpon>
+      <LastGenOutput>DBModels.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\DBModels.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -7535,6 +7538,7 @@
     <Content Include="Views\OrderRequest\Index.cshtml" />
     <Content Include="Views\OrderRequest\AddorEdit.cshtml" />
     <Content Include="Views\Report\Ledger.cshtml" />
+    <Content Include="Views\Report\ReportCustomerLedger.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

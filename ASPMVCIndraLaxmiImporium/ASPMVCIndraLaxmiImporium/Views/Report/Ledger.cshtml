@@ -51,11 +51,12 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Ledger Name</label>
-                    @Html.DropDownList("LedgerID", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", disabled = "disabled", @onchange = "javascript:GetDetailFor('LedgerID','/Report/GetCustomer/','Report')" })
+                    @Html.DropDownList("LedgerID", Enumerable.Empty<SelectListItem>(), "--Select--", new { @class = "form-control", disabled = "disabled", @onchange = "javascript:GetDetailFor('LedgerID','/Report/ReportCustomerLedger/','Report')" })
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div class="row" id="Report"></div>
+            <div class="row" id="Report">
+            </div>
 
 
 

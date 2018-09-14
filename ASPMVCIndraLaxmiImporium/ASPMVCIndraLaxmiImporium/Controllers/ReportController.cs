@@ -14,10 +14,10 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
         {
             return View();
         }
-        public ActionResult ReportCustomerLedger(int id)
+        public ActionResult ReportCustomerLedger(string id)
         {
-            //return View(new DBModel().R );
-            return View();
+            return View(new DBModel().ReportCustomerLedgers.Where(x=>x.LedgerNumber== id).ToList<ReportCustomerLedger>());
+            
         }
     }
 }
