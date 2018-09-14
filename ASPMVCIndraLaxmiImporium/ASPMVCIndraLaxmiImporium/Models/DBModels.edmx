@@ -102,6 +102,29 @@
           <Property Name="Date" Type="date" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'IndraLaxmiImporium.dbo.ReportCustomerLedger' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ReportCustomerLedger">
+          <Property Name="SN" Type="bigint" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Debit" Type="float" />
+          <Property Name="Credit" Type="float" />
+          <Property Name="Date" Type="date" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'IndraLaxmiImporium.dbo.ViewCustomerLedger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewCustomerLedger">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="CustomerName" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="PreviousBalance" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mark" Type="nvarchar" MaxLength="50" />
+          <Property Name="LedgerNumber" Type="int" />
+        </EntityType>
         <EntityContainer Name="IndraLaxmiImporiumModelStoreContainer">
           <EntitySet Name="BillCustomers" EntityType="Self.BillCustomers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bills" EntityType="Self.Bills" Schema="dbo" store:Type="Tables" />
@@ -111,6 +134,16 @@
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionDetails" EntityType="Self.TransactionDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionMains" EntityType="Self.TransactionMains" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewCustomerLedger" EntityType="Self.ViewCustomerLedger" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewCustomerLedger].[CustomerID] AS [CustomerID], 
+    [ViewCustomerLedger].[CustomerName] AS [CustomerName], 
+    [ViewCustomerLedger].[Type] AS [Type], 
+    [ViewCustomerLedger].[PreviousBalance] AS [PreviousBalance], 
+    [ViewCustomerLedger].[Mark] AS [Mark], 
+    [ViewCustomerLedger].[LedgerNumber] AS [LedgerNumber]
+    FROM [dbo].[ViewCustomerLedger] AS [ViewCustomerLedger]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -200,6 +233,7 @@
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="TransactionDetails" EntityType="IndraLaxmiImporiumModel.TransactionDetail" />
           <EntitySet Name="TransactionMains" EntityType="IndraLaxmiImporiumModel.TransactionMain" />
+          <EntitySet Name="ViewCustomerLedgers" EntityType="IndraLaxmiImporiumModel.ViewCustomerLedger" />
         </EntityContainer>
         <EntityType Name="TransactionDetail">
           <Key>
@@ -222,6 +256,18 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewCustomerLedger">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="CustomerName" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PreviousBalance" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LedgerNumber" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -331,6 +377,18 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="BillNumber" ColumnName="BillNumber" />
                 <ScalarProperty Name="TransactionMainID" ColumnName="TransactionMainID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewCustomerLedgers">
+            <EntityTypeMapping TypeName="IndraLaxmiImporiumModel.ViewCustomerLedger">
+              <MappingFragment StoreEntitySet="ViewCustomerLedger">
+                <ScalarProperty Name="LedgerNumber" ColumnName="LedgerNumber" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="PreviousBalance" ColumnName="PreviousBalance" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

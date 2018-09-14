@@ -65,7 +65,7 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult SaveCustomerDetail(BillCustomer cust, int TotalAmount)
+        public ActionResult SaveCustomerDetail(BillCustomer cust, int TotalAmount, int CustomerName)
         {
             TransactionMain main = new TransactionMain() { TransactionMainID = 0, BillNumber = cust.BillNumber, Description = "Goods dispatch to " + cust.CustomerCode, Date = cust.Date, UserName = "Admin" };
 
@@ -76,11 +76,11 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             //for TransactionDetail
             DBModel db2 = new DBModel();
 
-             db2.TransactionDetails.Add(new TransactionDetail() { TransactionDetailID = 0, TransactionMainID = main.TransactionMainID, LedgerNumber = LedgerController.GetLedgerNumber((int)cust.CustomerCode), Description ="Goods dispatch by "+ cust.BillNumber , Debit = 0, Credit = Convert.ToDouble(cust.Total), CustomerID = (int)cust.CustomerCode });
+            db2.TransactionDetails.Add(new TransactionDetail() { TransactionDetailID = 0, TransactionMainID = main.TransactionMainID, LedgerNumber =CustomerName.ToString(), Description = "Goods dispatch by " + cust.BillNumber, Debit = 0, Credit = Convert.ToDouble(cust.Total), CustomerID = 0 });
             db2.SaveChanges();
 
             DBModel db3 = new DBModel();
-         
+
             db3.Entry(cust).State = EntityState.Modified;
             db3.SaveChanges();
 
@@ -92,8 +92,9 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
 
             DBModel db4 = new DBModel();
 
-            db4.TransactionDetails.Add(new TransactionDetail() { TransactionDetailID = 0, TransactionMainID = main.TransactionMainID, LedgerNumber = LedgerController.GetLedgerNumber((int)cust.CustomerCode), Description = "Paid for Goods " + cust.BillNumber, Debit = TotalAmount, Credit = 0, CustomerID = (int)cust.CustomerCode });
+            db4.TransactionDetails.Add(new TransactionDetail() { TransactionDetailID = 0, TransactionMainID = main.TransactionMainID, LedgerNumber = CustomerName.ToString(), Description = "Paid for Goods " + cust.BillNumber, Debit = TotalAmount, Credit = 0, CustomerID = 0 });
             db4.SaveChanges();
+            // return Content(CustomerName.ToString());
 
             return RedirectToAction("Index");
         }
@@ -112,10 +113,10 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
 
         public ActionResult GetCustomer(String id = "")
         {
-            String[] type = { "Debtor", "Creditor", "Transport" };
-            String CustomerType = id;
+            //String[] type = { "Debtor", "Creditor", "Transport" };
+            //String CustomerType = id;
 
-            DBModel db = new DBModel();
+            //DBModel db = new DBModel();
             //var balance = (from aa in db.Customers
             //               join c in db.Ledgers on aa.CustomerID equals c.CustomerID into lg
             //               from x in lg.DefaultIfEmpty()
@@ -127,21 +128,13 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             //                   x.LedgerName
             //               }).ToList();
 
-            var data = (from c in db.Customers
-                                      join l in db.Ledgers on c.CustomerID equals l.CustomerID
-                                      where l.Type == id
-                                      select new CustomerLedger
-                                      {
-                                          CustomerName = c,
-                                          LedgerName = l
-                                      });
-
-            IEnumerable<CustomerLedger> a = data;
+        
 
 
             List<CustomerLedger> objcity = new List<CustomerLedger>();
 
-            SelectList obgcity = new SelectList(a, "LedgerName.LedgerID", "CustomerName.CustomerName", 0);
+            SelectList obgcity = new SelectList(new DBModel().ViewCustomerLedgers.Where(x=>x.Type== id).ToList<ViewCustomerLedger>(), "LedgerNumber", "CustomerName", 0);
+
 
             return Json(obgcity, JsonRequestBehavior.AllowGet);
             //return Content(a);

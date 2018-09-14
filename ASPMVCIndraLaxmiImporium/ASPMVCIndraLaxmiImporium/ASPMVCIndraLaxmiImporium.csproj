@@ -167,6 +167,7 @@
     <Compile Include="Controllers\LedgerTransactionController.cs" />
     <Compile Include="Controllers\OrderRequestController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\TarrifChargeController.cs" />
     <Compile Include="Controllers\TransactionDetailController.cs" />
     <Compile Include="Controllers\TransactionMainController.cs" />
@@ -222,6 +223,9 @@
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TransactionMain.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewCustomerLedger.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -7530,6 +7534,7 @@
     <Content Include="Views\TarrifCharge\AddorEdit.cshtml" />
     <Content Include="Views\OrderRequest\Index.cshtml" />
     <Content Include="Views\OrderRequest\AddorEdit.cshtml" />
+    <Content Include="Views\Report\Ledger.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

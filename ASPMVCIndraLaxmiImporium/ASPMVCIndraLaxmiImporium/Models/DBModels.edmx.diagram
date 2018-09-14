@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.Product" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.TransactionDetail" Width="1.5" PointX="7.125" PointY="1.75" />
         <EntityTypeShape EntityType="IndraLaxmiImporiumModel.TransactionMain" Width="1.5" PointX="5" PointY="2" />
+        <EntityTypeShape EntityType="IndraLaxmiImporiumModel.ViewCustomerLedger" Width="1.5" PointX="0.75" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

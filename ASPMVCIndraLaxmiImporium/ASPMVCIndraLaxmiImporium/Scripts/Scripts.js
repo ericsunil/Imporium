@@ -137,7 +137,10 @@ function GetDropDownFor(_Id, url, target) {
             for (var x = 0; x < data.length; x++) {
                 markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
             }
+            //alert(markup);
             $("#" + target).html(markup).show();
+            $("#" + target).select2();
+            $("#" + target).prop('disabled', false);
         }
     });
 }

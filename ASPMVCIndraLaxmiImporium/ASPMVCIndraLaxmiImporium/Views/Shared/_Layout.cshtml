@@ -258,6 +258,20 @@
                     @*<li><a href="ChargeTarrif"><i class="fa fa-book"></i> <span>Charge Tarrif</span></a></li>*@
                     @*<li><a href="TransactionMain"><i class="fa fa-book"></i> <span>Transaction Main</span></a></li>
         <li><a href="TransactionDetail"><i class="fa fa-book"></i> <span>Transaction Detail</span></a></li>*@
+
+                    <li class="header">REPORT NAVIGATION</li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-balance-scale"></i> <span>Reports</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index","Ledger")"><i class="fa fa-file-powerpoint-o"></i>Ledger</a></li>
+                            <li><a href="@Url.Action("Index","Home")"><i class="fa fa-dollar"></i>.......</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->

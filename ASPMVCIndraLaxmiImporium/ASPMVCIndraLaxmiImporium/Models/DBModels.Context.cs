@@ -33,5 +33,6 @@ namespace ASPMVCIndraLaxmiImporium.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<TransactionDetail> TransactionDetails { get; set; }
         public virtual DbSet<TransactionMain> TransactionMains { get; set; }
+        public virtual DbSet<ViewCustomerLedger> ViewCustomerLedgers { get; set; }
     }
 }

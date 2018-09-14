@@ -129,5 +129,12 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
            
             return db.LedgerID.ToString();
         }
+
+        public static string GetLedgerNumberByName(string id)
+        {
+            Ledger db = new DBModel().Ledgers.Where(x => x.LedgerName == id).FirstOrDefault<Ledger>();
+
+            return db.LedgerID.ToString();
+        }
     }
 }

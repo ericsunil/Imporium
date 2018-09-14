@@ -38,6 +38,9 @@ namespace ASPMVCIndraLaxmiImporium.Controllers
             DBModel db3 = new DBModel();
             db3.TransactionDetails.Add(new TransactionDetail() { TransactionDetailID = 0, TransactionMainID = main.TransactionMainID, LedgerNumber =LedgerController.GetLedgerNumber(CustomerID), Description = Description, Debit = 0, Credit = Amount, CustomerID = CustomerID });
             db3.SaveChanges();
+
+            
+
             return RedirectToAction("Index");
         }
 
